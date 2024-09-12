@@ -25,7 +25,7 @@ namespace Ecommerce_Project.Services.ProductServices
 
         public async Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts()
         {
-            var products = await _context.BodyProducts
+            var products = await _context.Products
                 .Include(x => x.Subcategory)
                 .Include(x => x.Store)
                 .Include(x => x.BodyProductImages)
@@ -42,7 +42,7 @@ namespace Ecommerce_Project.Services.ProductServices
             var serviceResponse = new ServiceResponse<GetProductDTO>();
             try
             {
-                var product = await _context.BodyProducts
+                var product = await _context.Products
                     .Include(p => p.Store)
                     .Include(p => p.Subcategory)
                     .Include(p => p.BodyProductImages)
@@ -91,10 +91,10 @@ namespace Ecommerce_Project.Services.ProductServices
             }
 
             //Save product
-            _context.BodyProducts.Add(product);
+            _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            serviceResponse.Data = await _context.BodyProducts
+            serviceResponse.Data = await _context.Products
                 .Select(p => _mapper.Map<GetProductDTO>(p)).ToListAsync();
             return serviceResponse;
         }
@@ -105,7 +105,7 @@ namespace Ecommerce_Project.Services.ProductServices
 
             try
             {
-                var product = await _context.BodyProducts
+                var product = await _context.Products
                     .FirstOrDefaultAsync(x => x.Id == updatedProduct.Id);
                 if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
 
@@ -157,14 +157,14 @@ namespace Ecommerce_Project.Services.ProductServices
 
             try
             {
-                var product = await _context.BodyProducts.FirstOrDefaultAsync(x => x.Id == id);
+                var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
                 if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
 
-                _context.BodyProducts.Remove(product);
+                _context.Products.Remove(product);
 
                 await _context.SaveChangesAsync();
 
-                serviceResponse.Data = await _context.BodyProducts
+                serviceResponse.Data = await _context.Products
                     .Select(x => _mapper.Map<GetProductDTO>(x)).ToListAsync();
             }
             catch (Exception ex)

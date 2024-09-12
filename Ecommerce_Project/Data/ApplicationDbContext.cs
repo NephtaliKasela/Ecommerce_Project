@@ -23,7 +23,7 @@ namespace Ecommerce_Project.Data
         public DbSet<Category> Categories => Set<Category>();
         public DbSet<Subcategory> SubCategories => Set<Subcategory>();
 
-        public DbSet<Product> BodyProducts => Set<Product>();
+        public DbSet<Product> Products => Set<Product>();
         public DbSet<ProductPrice> ProductPrices => Set<ProductPrice>();
         public DbSet<ProductImage> ProductImages => Set<ProductImage>();
 

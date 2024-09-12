@@ -25,7 +25,7 @@ namespace Ecommerce_Project.Services.SubCategoryServices
         {
             var subCategories = await _context.SubCategories
                 .Include(x => x.Category)
-                .Include(x => x)
+                .Include(x => x.Products)
                 .ToListAsync();
             var serviceResponse = new ServiceResponse<List<GetSubcategoryDTO>>()
             {

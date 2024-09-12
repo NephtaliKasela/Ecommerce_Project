@@ -3,6 +3,7 @@ using Ecommerce_Project.Services.CategoryServices;
 using Ecommerce_Project.Services.CityServices;
 using Ecommerce_Project.Services.ContinentServices;
 using Ecommerce_Project.Services.CountryServices;
+using Ecommerce_Project.Services.DataSeederServices;
 using Ecommerce_Project.Services.ImageServices;
 using Ecommerce_Project.Services.OtherServices;
 using Ecommerce_Project.Services.ProductServices;
@@ -34,6 +35,8 @@ builder.Services.AddScoped<IImageServices, ImageServices>();
 builder.Services.AddScoped<IStoreServices, StoreServices>();
 
 builder.Services.AddScoped<IOtherServices, OtherServices>();
+
+builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)

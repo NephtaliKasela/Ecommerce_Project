@@ -30,7 +30,7 @@ namespace Ecommerce_Project.Services.ImageServices
                     var imageData = memoryStream.ToArray();
 
                     //Get Product by id
-                    var product = await _context.BodyProducts.FirstOrDefaultAsync(p => p.Id == productId);
+                    var product = await _context.Products.FirstOrDefaultAsync(p => p.Id == productId);
 
                     // Save the imageData to the database using your data access logic
                     // For example, using Entity Framework Core:
