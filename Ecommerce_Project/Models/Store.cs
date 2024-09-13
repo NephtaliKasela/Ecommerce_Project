@@ -1,6 +1,6 @@
 ﻿namespace Ecommerce_Project.Models
 {
-    public class Store
+    public class Store         // Seller
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
