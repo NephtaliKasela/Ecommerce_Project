@@ -337,7 +337,7 @@
                         <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
                             <h6 class="text-truncate mb-3">@product.Name</h6>
                             <div class="d-flex justify-content-center">
-                                <h6>$@product.SoldPrice</h6><h6 class="text-muted ml-2"><del>$@product.Price</del></h6>
+                                <h6>$@Math.Round(product.SoldPrice)</h6><h6 class="text-muted ml-2"><del>$@Math.Round(product.Price)</del></h6>
                             </div>
                         </div>
                         <div class="card-footer d-flex justify-content-between bg-light border">

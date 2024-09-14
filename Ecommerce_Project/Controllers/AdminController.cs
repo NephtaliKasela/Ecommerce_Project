@@ -27,6 +27,14 @@ namespace Ecommerce_Project.Controllers
             return RedirectToAction("Index", "Admin");
         }
 
-
+        public async Task<ActionResult> UpdateProduct(int id)
+        {
+            var product = await _productService.GetProductById(id);
+            if (product.Data is not null)
+            {
+                return View(product.Data);
+            }
+            return RedirectToAction("Products", "Admin");
+        }
     }
 }

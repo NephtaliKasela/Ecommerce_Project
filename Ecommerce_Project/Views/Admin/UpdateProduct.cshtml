@@ -1,5 +1,4 @@
-﻿@model List<Ecommerce_Project.DTOs.Product.GetProductDTO>
-
+﻿@model Ecommerce_Project.DTOs.Product.GetProductDTO
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -651,101 +650,42 @@
     </div>
 </div>
 <!-- Main Menu area End-->
-
 <!-- Breadcomb area Start-->
 <div class="breadcomb-area">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-				<div class="breadcomb-list">
-					<div class="row">
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-							<div class="breadcomb-wp">
-								<div class="breadcomb-icon">
-									<i class="notika-icon notika-windows"></i>
-								</div>
-								<div class="breadcomb-ctn">
-									<h2>Normal Table</h2>
-									<p>Welcome to Notika <span class="bread-ntd">Admin Template</span></p>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
-							<div class="breadcomb-report">
-								<button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- Breadcomb area End-->
-<!-- Normal Table area Start-->
-<div class="normal-table-area">
-	<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <div class="normal-table-list">
-                    <div class="basic-tb-hd">
-                        <h2>Products</h2>
-                        <p>Basic example without any additional modification classes</p>
-                    </div>
-                    <div class="bsc-tbl table-responsive">
-                        <table class="table table-sc-ex">
-                            <thead>
-                                <tr>
-                                    <th>Id</th>
-                                    <th>Name</th>
-                                    <th>Minimum Order</th>
-                                    <th>Stock Quantity</th>
-                                    <th>Brand</th>
-                                    <th>Made In</th>
-                                    <th>Price</th>
-                                    <th>Sold Price</th>
-                                    <th>Category</th>
-                                    <th>Store</th>
-                                    <th>Publication Date</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @{
-                                    foreach(var product in Model)
-                                    {
-                                        <tr>
-                                            <td>@product.Id</td>
-                                            <td>@product.Name</td>
-                                            <td>@product.MinimumOrder</td>
-                                            <td>@product.StockQuantity</td>
-                                            <td>@product.Brand</td>
-                                            <td>@product.MadeIn</td>
-                                            <td>@Math.Round(@product.Price)</td>
-                                            <td>@Math.Round(@product.SoldPrice)</td>
-                                            <td>@product.Subcategory.Name</td>
-                                            <td>@product.Store.Name</td>
-                                            <td>@product.PublicationDate.ToLongDateString()</td>
-                                            <td>
-                                                <div class="btn-demo-notika mg-t-30">
-                                                    <div class="button-icon-btn mg-t-30 butt-mg-t-20">
-                                                        <button class="btn btn-default btn-icon-notika dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="notika-icon notika-menu"></i></button>
-                                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                            <li><a class="dropdown-item" href="#">View</a></li>
-                                                            <li><a class="dropdown-item" asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@product.Id">Update</a></li>
-                                                            <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                            </tbody>
-                        </table>
+                <div class="breadcomb-list">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <div class="breadcomb-wp">
+                                <div class="breadcomb-icon">
+                                    <i class="notika-icon notika-windows"></i>
+                                </div>
+                                <div class="breadcomb-ctn">
+                                    <h2>Update Product</h2>
+                                    <p>Welcome to Notika <span class="bread-ntd">Admin Template</span></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-3">
+                            <div class="breadcomb-report">
+                                <button data-toggle="tooltip" data-placement="left" title="Download Report" class="btn"><i class="notika-icon notika-sent"></i></button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-	</div>
+    </div>
+</div>
+<!-- Breadcomb area End-->
+
+<div class="container">
+    <form>
+        <div class="mb-3">
+            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+            <input class="form-control" type="file" id="formFileMultiple" multiple>
+        </div>
+    </form>
 </div>
