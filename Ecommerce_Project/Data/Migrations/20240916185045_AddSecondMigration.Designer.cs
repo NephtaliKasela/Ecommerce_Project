@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Ecommerce_Project.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240912082131_AddSecondMigration")]
+    [Migration("20240916185045_AddSecondMigration")]
     partial class AddSecondMigration
     {
         /// <inheritdoc />
@@ -127,9 +127,6 @@ namespace Ecommerce_Project.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("BodyProductId")
-                        .HasColumnType("int");
-
                     b.Property<string>("ContentType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -142,9 +139,12 @@ namespace Ecommerce_Project.Data.Migrations
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("BodyProductId");
+                    b.HasIndex("ProductId");
 
                     b.ToTable("ProductImages");
                 });
@@ -588,13 +588,13 @@ namespace Ecommerce_Project.Data.Migrations
 
             modelBuilder.Entity("Ecommerce_Project.Models.Images.ProductImage", b =>
                 {
-                    b.HasOne("Ecommerce_Project.Models.Product", "BodyProduct")
+                    b.HasOne("Ecommerce_Project.Models.Product", "Product")
                         .WithMany("BodyProductImages")
-                        .HasForeignKey("BodyProductId")
+                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BodyProduct");
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Ecommerce_Project.Models.Prices.ProductPrice", b =>

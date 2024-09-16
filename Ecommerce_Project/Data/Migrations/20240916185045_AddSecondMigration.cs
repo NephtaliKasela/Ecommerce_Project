@@ -218,14 +218,14 @@ namespace Ecommerce_Project.Data.Migrations
                     FileName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ImageData = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     ContentType = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    BodyProductId = table.Column<int>(type: "int", nullable: false)
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductImages", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductImages_Products_BodyProductId",
-                        column: x => x.BodyProductId,
+                        name: "FK_ProductImages_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -263,9 +263,9 @@ namespace Ecommerce_Project.Data.Migrations
                 column: "ContinentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductImages_BodyProductId",
+                name: "IX_ProductImages_ProductId",
                 table: "ProductImages",
-                column: "BodyProductId");
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductPrices_BodyProductId",

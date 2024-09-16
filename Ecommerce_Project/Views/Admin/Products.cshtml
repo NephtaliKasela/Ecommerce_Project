@@ -706,6 +706,7 @@
                                     <th>Sold Price</th>
                                     <th>Category</th>
                                     <th>Store</th>
+                                    <th>Photos</th>
                                     <th>Publication Date</th>
                                     <th>Actions</th>
                                 </tr>
@@ -725,6 +726,16 @@
                                             <td>@Math.Round(@product.SoldPrice)</td>
                                             <td>@product.Subcategory.Name</td>
                                             <td>@product.Store.Name</td>
+                                            @{
+                                                if(product.ProductImages.Count > 0)
+                                                {
+                                                    <td>Yes</td>
+                                                }
+                                                else
+                                                {
+                                                    <td>No</td>
+                                                }
+                                            }
                                             <td>@product.PublicationDate.ToLongDateString()</td>
                                             <td>
                                                 <div class="btn-demo-notika mg-t-30">

@@ -28,7 +28,7 @@ namespace Ecommerce_Project.Services.ProductServices
             var products = await _context.Products
                 .Include(x => x.Subcategory)
                 .Include(x => x.Store)
-                .Include(x => x.BodyProductImages)
+                .Include(x => x.ProductImages)
                 .ToListAsync();
             var serviceResponse = new ServiceResponse<List<GetProductDTO>>()
             {
@@ -45,7 +45,7 @@ namespace Ecommerce_Project.Services.ProductServices
                 var product = await _context.Products
                     .Include(p => p.Store)
                     .Include(p => p.Subcategory)
-                    .Include(p => p.BodyProductImages)
+                    .Include(p => p.ProductImages)
                     .FirstOrDefaultAsync(x => x.Id == id);
                 if (product is null) { throw new Exception($"Product with Id '{id}' not found"); }
 

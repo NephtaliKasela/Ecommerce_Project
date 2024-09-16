@@ -6,6 +6,6 @@
         public string FileName { get; set; }
         public byte[] ImageData { get; set; }
         public string ContentType { get; set; }
-        public Product BodyProduct { get; set; }
+        public Product Product { get; set; }
     }
 }

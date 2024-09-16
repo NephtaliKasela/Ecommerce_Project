@@ -20,6 +20,6 @@ namespace Ecommerce_Project.DTOs.Product
         public List<ProductPrice>? Prices { get; set; }
         public string SubcategoryId { get; set; }
         public string StoreId { get; set; }
-        public List<Models.Images.ProductImage>? BodyProductImages { get; set; }
+        public List<Models.Images.ProductImage>? ProductImages { get; set; }
     }
 }

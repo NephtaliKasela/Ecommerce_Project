@@ -663,8 +663,8 @@
                                     <i class="notika-icon notika-windows"></i>
                                 </div>
                                 <div class="breadcomb-ctn">
-                                    <h2>Update Product</h2>
-                                    <p>Welcome to Notika <span class="bread-ntd">Admin Template</span></p>
+                                    <h2>Update Product: <span class="text-primary">@Model.Name</span></h2>
+                                    @* <p>Welcome to Notika <span class="bread-ntd">Admin Template</span></p> *@
                                 </div>
                             </div>
                         </div>
@@ -682,10 +682,15 @@
 <!-- Breadcomb area End-->
 
 <div class="container">
-    <form>
+    <form asp-controller="Admin" asp-action="AddProductImage" enctype="multipart/form-data">
         <div class="mb-3">
-            <label for="formFileMultiple" class="form-label">Multiple files input example</label>
-            <input class="form-control" type="file" id="formFileMultiple" multiple>
+            <input type="hidden" id="productId" name="productId" value="@Model.Id" required/>
+            <div class="form-group">
+                <label for="formFileMultiple" class="form-label">Multiple files input example</label>
+                <input type="file" name="files" multiple class="form-control" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary mb-4">Add Image</button>
         </div>
     </form>
 </div>

@@ -25,6 +25,6 @@ namespace Ecommerce_Project.Models
         public List<ProductPrice>? Prices { get; set; }
         public Subcategory Subcategory { get; set; }
         public Store Store { get; set; }
-        public List<ProductImage>? BodyProductImages { get; set; }
+        public List<ProductImage>? ProductImages { get; set; }
     }
 }

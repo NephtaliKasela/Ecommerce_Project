@@ -1,4 +1,7 @@
-﻿using Ecommerce_Project.Services.ProductServices;
+﻿using Ecommerce_Project.DTOs.Images.ProductImage;
+using Ecommerce_Project.DTOs.Product;
+using Ecommerce_Project.Services.ImageServices.ProductImageServices;
+using Ecommerce_Project.Services.ProductServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,10 +10,12 @@ namespace Ecommerce_Project.Controllers
     public class AdminController : Controller
     {
         private readonly IProductService _productService;
+        private readonly IProductImageServices _productImageServices;
 
-        public AdminController(IProductService productService)
+        public AdminController(IProductService productService, IProductImageServices productImageServices)
         {
             _productService = productService;
+            _productImageServices = productImageServices;
         }
         public ActionResult Index()
         {
@@ -34,6 +39,17 @@ namespace Ecommerce_Project.Controllers
             {
                 return View(product.Data);
             }
+            return RedirectToAction("Products", "Admin");
+        }
+
+        public async Task<ActionResult> AddProductImage(AddProductImageDTO newProductImage)
+        {
+            var productImage = await _productImageServices.AddProductImage(newProductImage);
+            //var product = await _productService.GetProductById(newProductImage.ProductId);
+            //if (product. != null)
+            //{
+
+            //}
             return RedirectToAction("Products", "Admin");
         }
     }
