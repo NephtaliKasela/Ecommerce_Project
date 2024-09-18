@@ -1,4 +1,5 @@
 using Ecommerce_Project.Data;
+using Ecommerce_Project.Models;
 using Ecommerce_Project.Services.CategoryServices;
 using Ecommerce_Project.Services.CityServices;
 using Ecommerce_Project.Services.ContinentServices;
@@ -41,7 +42,7 @@ builder.Services.AddScoped<IOtherServices, OtherServices>();
 builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 

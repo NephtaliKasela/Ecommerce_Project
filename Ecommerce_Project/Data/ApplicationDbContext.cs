@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_Project.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -31,11 +31,20 @@ namespace Ecommerce_Project.Data
         {
             base.OnModelCreating(builder);
 
-            // Relationships
+            // // Relationship one-to-one between Store and StoreLocation
             builder.Entity<Store>()
             .HasOne(e => e.Location)
             .WithOne(e => e.Store)
             .HasForeignKey<StoreLocation>();
+
+            // Change Asp.Users table name to Users
+            builder.Entity<ApplicationUser>(entity => entity.ToTable(name: "Users"));
+
+            // Relationship one-to-one between Store and ApplicationUser
+            builder.Entity<ApplicationUser>()
+                .HasOne(a => a.Store)
+                .WithOne(a => a.ApplicationUser)
+                .HasForeignKey<Store>();
         }
     }
 }

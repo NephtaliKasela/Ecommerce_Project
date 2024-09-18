@@ -28,5 +28,6 @@
         public City? City { get; set; }
         public List<Product>? Products { get; set; }
         public StoreLocation? Location { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
