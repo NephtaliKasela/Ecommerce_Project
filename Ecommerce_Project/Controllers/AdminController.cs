@@ -17,9 +17,11 @@ namespace Ecommerce_Project.Controllers
             _productService = productService;
             _productImageServices = productImageServices;
         }
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var products = await _productService.GetAllProducts();
+            
+            return View(products.Data);
         }
 
         public async Task<ActionResult> Products()
