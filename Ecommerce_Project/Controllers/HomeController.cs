@@ -1,3 +1,4 @@
+using Ecommerce_Project.DTOs.ModelViews;
 using Ecommerce_Project.Models;
 using Ecommerce_Project.Services.CategoryServices;
 using Ecommerce_Project.Services.CityServices;
@@ -20,13 +21,13 @@ namespace Ecommerce_Project.Controllers
         private readonly ICityServices _cityServices;
         private readonly IStoreServices _storeServices;
         private readonly ICategoryServices _categoryServices;
-        private readonly ISubCategoryServices _subcategoryServices;
+        private readonly ISubcategoryServices _subcategoryServices;
         private readonly IProductService _productService;
         private readonly IDataSeeder _dataSeeder;
 
         public HomeController(ILogger<HomeController> logger, IContinentServices continentServices, ICountryServices countryServices,
                                 ICityServices cityServices, IStoreServices storeServices, ICategoryServices categoryServices,
-                                ISubCategoryServices subcategoryServices, IProductService productService, IDataSeeder dataSeeder)
+                                ISubcategoryServices subcategoryServices, IProductService productService, IDataSeeder dataSeeder)
         {
             _logger = logger;
             _continentServices = continentServices;
@@ -66,8 +67,8 @@ namespace Ecommerce_Project.Controllers
                 await _dataSeeder.SeedStores(n);
             }
 
-            var category = await _categoryServices.GetCategories();
-            if (category.Data.Count == 0)
+            var categories = await _categoryServices.GetCategories();
+            if (categories.Data.Count == 0)
             {
                 await _dataSeeder.SeedCategories(n);
             }
@@ -84,7 +85,10 @@ namespace Ecommerce_Project.Controllers
                 await _dataSeeder.SeedProducts(n);
             }
 
-            return View(products.Data);
+            var v = new Home_ModelView();
+            v.Categories = categories.Data;
+            v.Products = products.Data;
+            return View(v);
         }
 
         public IActionResult Privacy()

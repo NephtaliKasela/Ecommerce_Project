@@ -31,7 +31,7 @@ builder.Services.AddScoped<ICountryServices, CountryServices>();
 builder.Services.AddScoped<ICityServices, CityServices>();
 builder.Services.AddScoped<ICategoryServices, CategoryServices>();
 
-builder.Services.AddScoped<ISubCategoryServices, SubCategoryServices>();
+builder.Services.AddScoped<ISubcategoryServices, SubcategoryServices>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IImageServices, ImageServices>();
 builder.Services.AddScoped<IProductImageServices, ProductImageServices>();

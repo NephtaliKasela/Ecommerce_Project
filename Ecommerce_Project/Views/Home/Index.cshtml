@@ -1,4 +1,4 @@
-﻿@model List<Ecommerce_Project.DTOs.Product.GetProductDTO>
+﻿@model Ecommerce_Project.DTOs.ModelViews.Home_ModelView
 
 @{
     ViewData["Title"] = "Home Page";
@@ -80,42 +80,26 @@
                 <h6 class="m-0">Categories</h6>
                 <i class="fa fa-angle-down text-dark"></i>
             </a>
-            <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical">
-                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px">
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown">Body <i class="fa fa-angle-down float-right mt-1"></i></a>
-                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                            <a href="" class="dropdown-item">Men's Dresses</a>
-                            <a href="" class="dropdown-item">Women's Dresses</a>
-                            <a href="" class="dropdown-item">Baby's Dresses</a>
-                            <a href="" class="nav-item nav-link">Shirts</a>
-                            <a href="" class="nav-item nav-link">Jeans</a>
-                            <a href="" class="nav-item nav-link">Swimwear</a>
-                            <a href="" class="nav-item nav-link">Sleepwear</a>
-                            <a href="" class="nav-item nav-link">Sportswear</a>
-                            <a href="" class="nav-item nav-link">Jumpsuits</a>
-                            <a href="" class="nav-item nav-link">Blazers</a>
-                            <a href="" class="nav-item nav-link">Jackets</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown">Food <i class="fa fa-angle-down float-right mt-1"></i></a>
-                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                            <a href="" class="dropdown-item">Men's Dresses</a>
-                            <a href="" class="dropdown-item">Women's Dresses</a>
-                            <a href="" class="dropdown-item">Baby's Dresses</a>
-                        </div>
-                    </div>
-                    <div class="nav-item dropdown">
-                        <a href="#" class="nav-link" data-toggle="dropdown">Electronic <i class="fa fa-angle-down float-right mt-1"></i></a>
-                        <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
-                            <a href="" class="dropdown-item">Men's Dresses</a>
-                            <a href="" class="dropdown-item">Women's Dresses</a>
-                            <a href="" class="dropdown-item">Baby's Dresses</a>
-                        </div>
-                    </div>
+            <nav class="collapse show navbar navbar-vertical navbar-light align-items-start p-0 border border-top-0 border-bottom-0" id="navbar-vertical" style="overflow-y:auto;">
+                <div class="navbar-nav w-100 overflow-hidden" style="height: 410px;">
                     
-                    <a href="" class="nav-item nav-link">Shoes</a>
+                        @{
+                            foreach (var category in Model.Categories.Where(x => x.Subcategories.Count > 0))
+                            {
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link" data-toggle="dropdown">@category.Name <i class="fa fa-angle-down float-right mt-1"></i></a>
+                                <div class="dropdown-menu position-absolute bg-secondary border-0 rounded-0 w-100 m-0">
+                                    @{
+                                        foreach(var subcategory in category.Subcategories)
+                                        {
+                                            <a href="#" class="dropdown-item">@subcategory.Name</a>
+                                        }
+                                    }
+                                </div>
+                            </div>
+                            }
+                        }
+                    
                 </div>
             </nav>
         </div>
@@ -309,8 +293,11 @@
     </div>
     <div class="row px-xl-5 pb-3">
         @{
-            foreach(var product in Model)
+            int count = 0;
+            foreach(var product in Model.Products)
             {
+                count++;
+                if (count > 8) break;
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
@@ -370,12 +357,12 @@
     </div>
     <div class="row px-xl-5 pb-3">
         @{
-            int count = 0;
-            for (int i = Model.Count - 1; i >= 0; i--)
+            int counter = 0;
+            for (int i = Model.Products.Count - 1; i >= 0; i--)
             {
-                count++;
-                if (count == 5) break;
-                var product = Model[i];
+                counter++;
+                if (counter > 4) break;
+                var product = Model.Products[i];
                 <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                     <div class="card product-item border-0 mb-4">
                         <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">

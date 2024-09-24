@@ -9,6 +9,6 @@ namespace Ecommerce_Project.Models
         public string Description { get; set; } = string.Empty;
 
         // Foreign Keys
-        public List<Subcategory>? SubCategories { get; set; }
+        public List<Subcategory>? Subcategories { get; set; }
     }
 }

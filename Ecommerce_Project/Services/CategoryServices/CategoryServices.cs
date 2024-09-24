@@ -21,7 +21,7 @@ namespace Ecommerce_Project.Services.CategoryServices
         public async Task<ServiceResponse<List<GetCategoryDTO>>> GetCategories()
         {
             var categories = await _context.Categories
-                .Include(c => c.SubCategories)
+                .Include(c => c.Subcategories)
                 .ToListAsync();
             var serviceResponse = new ServiceResponse<List<GetCategoryDTO>>()
             {
@@ -33,7 +33,7 @@ namespace Ecommerce_Project.Services.CategoryServices
         public async Task<ServiceResponse<GetCategoryDTO>> GetCategoryById(int id)
         {
             var category = await _context.Categories
-                .Include(c => c.SubCategories)
+                .Include(c => c.Subcategories)
                 .FirstOrDefaultAsync(c => c.Id == id);
 
             var serviceResponse = new ServiceResponse<GetCategoryDTO>()

@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_Project.Services.SubCategoryServices
 {
-    public class SubCategoryServices: ISubCategoryServices
+    public class SubcategoryServices: ISubcategoryServices
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 		private readonly ICategoryServices _categoryServices;
 
-		public SubCategoryServices(ApplicationDbContext context, IMapper mapper, ICategoryServices categoryServices)
+		public SubcategoryServices(ApplicationDbContext context, IMapper mapper, ICategoryServices categoryServices)
         {
             _context = context;
             _mapper = mapper;

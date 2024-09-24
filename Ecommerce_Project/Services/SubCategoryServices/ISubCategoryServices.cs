@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 
 namespace Ecommerce_Project.Services.SubCategoryServices
 {
-    public interface ISubCategoryServices
+    public interface ISubcategoryServices
     {
         Task<ServiceResponse<List<GetSubcategoryDTO>>> GetAllSubCategories();
 		Task<ServiceResponse<GetSubcategoryDTO>> GetSubCategoryById(int id);
