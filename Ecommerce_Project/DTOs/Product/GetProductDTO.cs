@@ -1,4 +1,5 @@
 ﻿using Bogus.DataSets;
+using Ecommerce_Project.DTOs.Images.ProductImage;
 using Ecommerce_Project.Models.Images;
 using Ecommerce_Project.Models.Prices;
 

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
 using Ecommerce_Project.Data;
 using Ecommerce_Project.DTOs.Category;
+using Ecommerce_Project.DTOs.Product;
 using Ecommerce_Project.DTOs.Store;
 using Ecommerce_Project.Models;
+using Ecommerce_Project.Models.Images;
+using Ecommerce_Project.Services.ImageServices.ProductImageServices;
 using Microsoft.EntityFrameworkCore;
 
 namespace Ecommerce_Project.Services.StoreServices
@@ -10,11 +13,13 @@ namespace Ecommerce_Project.Services.StoreServices
     public class StoreServices: IStoreServices
     {
         private readonly ApplicationDbContext _context;
+        private readonly IProductImageServices _productImageServices;
         private readonly IMapper _mapper;
 
-        public StoreServices(ApplicationDbContext context, IMapper mapper)
+        public StoreServices(ApplicationDbContext context, IProductImageServices productImageServices, IMapper mapper)
         {
             _context = context;
+            _productImageServices = productImageServices;
             _mapper = mapper;
         }
 
@@ -37,6 +42,20 @@ namespace Ecommerce_Project.Services.StoreServices
             var serviceResponse = new ServiceResponse<GetStoreDTO>()
             {
                 Data = _mapper.Map<GetStoreDTO>(store)
+            };
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetStoreDTO>> GetStoreByUserId(string userId)
+        {
+            var agent = await _context.Stores
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Products)
+                .FirstOrDefaultAsync(x => x.ApplicationUser.Id == userId);
+
+            var serviceResponse = new ServiceResponse<GetStoreDTO>()
+            {
+                Data = _mapper.Map<GetStoreDTO>(agent)
             };
             return serviceResponse;
         }

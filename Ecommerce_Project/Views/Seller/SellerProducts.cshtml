@@ -1,0 +1,118 @@
+﻿@model Ecommerce_Project.DTOs.Store.GetStoreDTO
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    //Layout = "~/Views/Shared/adminLayout.cshtml";
+}
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <div class="col-md-2 col-sm-12">
+            <ul class="nav flex-column nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Seller" asp-action="Dashboard">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="content-tab" data-bs-toggle="pill" href="#order" role="tab" aria-controls="content" aria-selected="false">Orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" asp-controller="Seller" asp-action="SellerProducts">Products</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-10 col-sm-12">
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="product" role="tabpanel" aria-labelledby="categories-tab">
+                    <!-- Normal Table area Start-->
+                    <div class="normal-table-area">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="normal-table-list">
+                                        <div class="basic-tb-hd">
+                                            <h4>Products</h4>
+                                        </div>
+                                        <div class="bsc-tbl table-responsive">
+                                            <table class="table table-sc-ex">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Id</th>
+                                                        <th>Name</th>
+                                                        <th>Minimum Order</th>
+                                                        <th>Stock Quantity</th>
+                                                        <th>Brand</th>
+                                                        <th>Made In</th>
+                                                        <th>Price</th>
+                                                        <th>Sold Price</th>
+                                                        <th>Category</th>
+                                                        <th>Store</th>
+                                                        <th>Publication Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @{
+                                                        foreach (var product in Model.Products)
+                                                        {
+                                                            <tr>
+                                                                <td>@product.Id</td>
+                                                                @{
+                                                                    if (product.ProductImages is not null && product.ProductImages.Count > 0)
+                                                                    {
+                                                                        var image = product.ProductImages[0];
+                                                                        <td>
+                                                                            <div class="" style="display: flex; align-items: center;">
+
+                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="max-width: 100px; margin-right: 10px;" alt="@product.Name">
+
+                                                                                <div>
+                                                                                    @product.Name
+                                                                                </div>
+                                                                            </div>
+                                                                        </td>
+
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <td>@product.Name</td>
+                                                                    }
+                                                                }
+                                                                <td>@product.MinimumOrder</td>
+                                                                <td>@product.StockQuantity</td>
+                                                                <td>@product.Brand</td>
+                                                                <td>@product.MadeIn</td>
+                                                                <td>@Math.Round(@product.Price)</td>
+                                                                <td>@Math.Round(@product.SoldPrice)</td>
+                                                                <td>@product.Subcategory.Name</td>
+                                                                <td>@product.Store.Name</td>
+                                                                <td>@product.PublicationDate.ToLongDateString()</td>
+                                                                <td>
+                                                                    <div class="btn-demo-notika mg-t-30">
+                                                                        <div class="button-icon-btn mg-t-30 butt-mg-t-20">
+                                                                            <button class="btn btn-default btn-icon-notika dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="notika-icon notika-menu"></i></button>
+                                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                                                <li><a class="dropdown-item" href="#">View</a></li>
+                                                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@product.Id">Update</a></li>
+                                                                                <li><a class="dropdown-item" href="#">Delete</a></li>
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        }
+                                                    }
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

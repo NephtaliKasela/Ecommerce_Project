@@ -1,4 +1,5 @@
-﻿using Ecommerce_Project.Models;
+﻿using Ecommerce_Project.DTOs.Product;
+using Ecommerce_Project.Models;
 
 namespace Ecommerce_Project.DTOs.Store
 {
@@ -30,5 +31,6 @@ namespace Ecommerce_Project.DTOs.Store
         public Models.City? City { get; set; }
         public List<Models.Product>? Products { get; set; }
         public Models.StoreLocation? Location { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }

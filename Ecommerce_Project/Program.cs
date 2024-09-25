@@ -12,6 +12,7 @@ using Ecommerce_Project.Services.ProductServices;
 using Ecommerce_Project.Services.StoreServices;
 using Ecommerce_Project.Services.SubCategoryServices;
 using Microsoft.AspNetCore.Identity;
+
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -43,6 +44,7 @@ builder.Services.AddScoped<IDataSeeder, DataSeeder>();
 
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 

@@ -57,7 +57,29 @@ namespace Ecommerce_Project.Services.ProductServices
                 serviceResponse.Message = ex.Message;
             }
 
+            return serviceResponse;
+        }
 
+        public async Task<ServiceResponse<List<Product>>> GetProductsByStoreId(int storeId)
+        {
+            var serviceResponse = new ServiceResponse<List<Product>>();
+            try
+            {
+                var products = await _context.Products
+                    .Include(p => p.Store)
+                    .Include(p => p.Subcategory)
+                    .Include(p => p.ProductImages)
+                    .Where(x => x.Store.Id == storeId).ToListAsync();
+
+                if (products is null) { throw new Exception($"Product with Id '{storeId}' not found"); }
+
+                serviceResponse.Data = products;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
 
             return serviceResponse;
         }
