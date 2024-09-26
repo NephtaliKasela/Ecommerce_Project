@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Ecommerce_Project.Controllers;
+using Ecommerce_Project.DTOs.Cart;
 using Ecommerce_Project.DTOs.Category;
 using Ecommerce_Project.DTOs.City;
 using Ecommerce_Project.DTOs.Continent;
@@ -44,13 +45,19 @@ namespace Ecommerce_Project
             CreateMap<Subcategory, GetSubcategoryDTO>();
             CreateMap<UpdateSubcategoryDTO, GetSubcategoryDTO>();
 
+            // Store
             //CreateMap<GetStoreDTO, Store>();
             CreateMap<Store, GetStoreDTO>();
             CreateMap<AddStoreDTO, Store>();
 
+            // Product
             CreateMap<AddProductDTO, Product>();
             CreateMap<Product, GetProductDTO>();
             CreateMap<UpdateProductDTO, GetProductDTO>();
+
+            // Cart
+            CreateMap<AddCartDTO, Cart>();
+            CreateMap<Cart, GetCartDTO>();
         }
     }
 }

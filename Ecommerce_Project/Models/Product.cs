@@ -26,5 +26,6 @@ namespace Ecommerce_Project.Models
         public Subcategory Subcategory { get; set; }
         public Store Store { get; set; }
         public List<ProductImage>? ProductImages { get; set; }
+        public Cart? Cart { get; set; }
     }
 }

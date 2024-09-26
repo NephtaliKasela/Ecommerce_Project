@@ -5,5 +5,6 @@ namespace Ecommerce_Project.Models
     public class ApplicationUser : IdentityUser
     {
         public Store? Store { get; set; }
+        public Cart? Cart { get; set; }
     }
 }

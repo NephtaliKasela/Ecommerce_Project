@@ -29,4 +29,8 @@
     <Folder Include="Models\Products\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="Areas\Identity\Pages\_ViewStart.cshtml" />
+  </ItemGroup>
+
 </Project>

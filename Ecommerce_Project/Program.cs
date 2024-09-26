@@ -1,5 +1,6 @@
 using Ecommerce_Project.Data;
 using Ecommerce_Project.Models;
+using Ecommerce_Project.Services.CartServices;
 using Ecommerce_Project.Services.CategoryServices;
 using Ecommerce_Project.Services.CityServices;
 using Ecommerce_Project.Services.ContinentServices;
@@ -37,6 +38,7 @@ builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IImageServices, ImageServices>();
 builder.Services.AddScoped<IProductImageServices, ProductImageServices>();
 builder.Services.AddScoped<IStoreServices, StoreServices>();
+builder.Services.AddScoped<ICartServices, CartServices>();
 
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 

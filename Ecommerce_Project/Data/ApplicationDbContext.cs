@@ -26,6 +26,7 @@ namespace Ecommerce_Project.Data
         public DbSet<Product> Products => Set<Product>();
         public DbSet<ProductPrice> ProductPrices => Set<ProductPrice>();
         public DbSet<ProductImage> ProductImages => Set<ProductImage>();
+        public DbSet<Cart> Carts => Set<Cart>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -45,6 +46,18 @@ namespace Ecommerce_Project.Data
                 .HasOne(a => a.Store)
                 .WithOne(a => a.ApplicationUser)
                 .HasForeignKey<Store>();
+
+            // Relationship one-to-one between Cart and ApplicationUser
+            builder.Entity<ApplicationUser>()
+                .HasOne(a => a.Cart)
+                .WithOne(a => a.ApplicationUser)
+                .HasForeignKey<Cart>();
+
+            // Relationship one-to-one between Product and Cart
+            builder.Entity<Product>()
+                .HasOne(a => a.Cart)
+                .WithOne(a => a.Product)
+                .HasForeignKey<Cart>();
         }
     }
 }
