@@ -19,9 +19,22 @@ namespace Ecommerce_Project.Controllers
             _cartServices = cartServices;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                var userCart = await _cartServices.GetCartsByUserId(user);
+
+                if (userCart.Data.Count > 0)
+                {
+                    return View(userCart.Data);
+                }
+            }
+
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> AddCart(AddCartDTO newCart)

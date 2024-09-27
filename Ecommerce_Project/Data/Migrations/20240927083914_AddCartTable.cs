@@ -14,17 +14,19 @@ namespace Ecommerce_Project.Data.Migrations
                 name: "Carts",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     Quantity = table.Column<long>(type: "bigint", nullable: false),
                     Total = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    ApplicationUserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    ProductId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Carts_Products_Id",
-                        column: x => x.Id,
+                        name: "FK_Carts_Products_ProductId",
+                        column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -38,9 +40,12 @@ namespace Ecommerce_Project.Data.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_ApplicationUserId",
                 table: "Carts",
-                column: "ApplicationUserId",
-                unique: true,
-                filter: "[ApplicationUserId] IS NOT NULL");
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_ProductId",
+                table: "Carts",
+                column: "ProductId");
         }
 
         /// <inheritdoc />

@@ -46,18 +46,6 @@ namespace Ecommerce_Project.Data
                 .HasOne(a => a.Store)
                 .WithOne(a => a.ApplicationUser)
                 .HasForeignKey<Store>();
-
-            // Relationship one-to-one between Cart and ApplicationUser
-            builder.Entity<ApplicationUser>()
-                .HasOne(a => a.Cart)
-                .WithOne(a => a.ApplicationUser)
-                .HasForeignKey<Cart>();
-
-            // Relationship one-to-one between Product and Cart
-            builder.Entity<Product>()
-                .HasOne(a => a.Cart)
-                .WithOne(a => a.Product)
-                .HasForeignKey<Cart>();
         }
     }
 }
