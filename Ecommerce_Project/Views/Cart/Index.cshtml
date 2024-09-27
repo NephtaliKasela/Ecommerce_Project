@@ -222,9 +222,9 @@
                             <h6 class="font-weight-medium">$@subtotal</h6>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h6 class="font-weight-medium">Shipping</h6>
+                            <h6 class="font-weight-medium">Shipping (5%)</h6>
                         @{
-                            decimal shipping = (subtotal * 20) / 100;
+                            decimal shipping = (subtotal * 5) / 100;
                         }
                             <h6 class="font-weight-medium">$@shipping</h6>
                         </div>

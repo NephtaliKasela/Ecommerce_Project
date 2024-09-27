@@ -11,5 +11,6 @@
         public List<City>? Cities { get; set; }
         public List<Product>? BodyProducts {  get; set; }    
         public List<Store>? Stores {  get; set; }    
+        public List<Order>? Orders {  get; set; }    
     }
 }
