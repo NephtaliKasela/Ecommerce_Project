@@ -73,12 +73,13 @@ namespace Ecommerce_Project.Controllers
         public async Task<ActionResult> AddProductImage(AddProductImageDTO newProductImage)
         {
             var productImage = await _productImageServices.AddProductImage(newProductImage);
-            //var product = await _productService.GetProductById(newProductImage.ProductId);
-            //if (product. != null)
-            //{
-
-            //}
             return RedirectToAction("Products", "Admin");
         }
+
+        //public async Task<ActionResult> AddPaymentMode(AddProductImageDTO newProductImage)
+        //{
+        //    var productImage = await _productImageServices.AddProductImage(newProductImage);
+        //    return RedirectToAction("Products", "Admin");
+        //}
     }
 }

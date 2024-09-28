@@ -8,7 +8,9 @@ using Ecommerce_Project.Services.CountryServices;
 using Ecommerce_Project.Services.DataSeederServices;
 using Ecommerce_Project.Services.ImageServices;
 using Ecommerce_Project.Services.ImageServices.ProductImageServices;
+using Ecommerce_Project.Services.OrderServices;
 using Ecommerce_Project.Services.OtherServices;
+using Ecommerce_Project.Services.PaymentModeServices;
 using Ecommerce_Project.Services.ProductServices;
 using Ecommerce_Project.Services.StoreServices;
 using Ecommerce_Project.Services.SubCategoryServices;
@@ -39,6 +41,8 @@ builder.Services.AddScoped<IImageServices, ImageServices>();
 builder.Services.AddScoped<IProductImageServices, ProductImageServices>();
 builder.Services.AddScoped<IStoreServices, StoreServices>();
 builder.Services.AddScoped<ICartServices, CartServices>();
+builder.Services.AddScoped<IOrderServices, OrderServices>();
+builder.Services.AddScoped<IPaymentModeServices, PaymentModeServices>();
 
 builder.Services.AddScoped<IOtherServices, OtherServices>();
 

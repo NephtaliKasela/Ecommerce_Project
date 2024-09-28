@@ -5,6 +5,7 @@ using Ecommerce_Project.Services.CityServices;
 using Ecommerce_Project.Services.ContinentServices;
 using Ecommerce_Project.Services.CountryServices;
 using Ecommerce_Project.Services.DataSeederServices;
+using Ecommerce_Project.Services.PaymentModeServices;
 using Ecommerce_Project.Services.ProductServices;
 using Ecommerce_Project.Services.StoreServices;
 using Ecommerce_Project.Services.SubCategoryServices;
@@ -23,11 +24,13 @@ namespace Ecommerce_Project.Controllers
         private readonly ICategoryServices _categoryServices;
         private readonly ISubcategoryServices _subcategoryServices;
         private readonly IProductService _productService;
+        private readonly IPaymentModeServices _paymentModeServices;
         private readonly IDataSeeder _dataSeeder;
 
         public HomeController(ILogger<HomeController> logger, IContinentServices continentServices, ICountryServices countryServices,
                                 ICityServices cityServices, IStoreServices storeServices, ICategoryServices categoryServices,
-                                ISubcategoryServices subcategoryServices, IProductService productService, IDataSeeder dataSeeder)
+                                ISubcategoryServices subcategoryServices, IProductService productService, IPaymentModeServices paymentModeServices,
+                                IDataSeeder dataSeeder)
         {
             _logger = logger;
             _continentServices = continentServices;
@@ -37,6 +40,7 @@ namespace Ecommerce_Project.Controllers
             _categoryServices = categoryServices;
             _subcategoryServices = subcategoryServices;
             _productService = productService;
+            _paymentModeServices = paymentModeServices;
             _dataSeeder = dataSeeder;
         }
 
@@ -77,6 +81,12 @@ namespace Ecommerce_Project.Controllers
             if (subcategory.Data.Count == 0)
             {
                 await _dataSeeder.SeedSubcategories(n);
+            }
+
+            var paymentModes = await _paymentModeServices.GetAllPaymentModes();
+            if (paymentModes.Data.Count == 0)
+            {
+                await _dataSeeder.SeedPaymentModes();
             }
 
             var products = await _productService.GetAllProducts();

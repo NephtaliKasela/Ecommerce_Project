@@ -1,8 +1,9 @@
-﻿namespace Ecommerce_Project.Models
+﻿using Ecommerce_Project.Models;
+
+namespace Ecommerce_Project.DTOs.Order
 {
-    public class Order
+    public class AddOrderDTO
     {
-        public int Id { get; set; }
         public string OrderID { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -17,9 +18,9 @@
         public decimal Payment { get; set; }
 
         // Foreign keys
-        public Product Product { get; set; }
+        public string ProductId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
-        public Country Country { get; set; }
-        public PaymentMode PaymentMode { get; set; }
+        public string CountryId { get; set; }
+        public string PaymentModeId { get; set; }
     }
 }

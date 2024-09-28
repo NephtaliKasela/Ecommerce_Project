@@ -9,5 +9,6 @@
         Task SeedCategories(int numberOfCategories);
         Task SeedSubcategories(int numberOfSubcategories);
         Task SeedProducts(int numberOfProducts);
+        Task SeedPaymentModes();
     }
 }

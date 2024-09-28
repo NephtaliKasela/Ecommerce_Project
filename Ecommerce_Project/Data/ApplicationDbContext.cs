@@ -27,6 +27,8 @@ namespace Ecommerce_Project.Data
         public DbSet<ProductPrice> ProductPrices => Set<ProductPrice>();
         public DbSet<ProductImage> ProductImages => Set<ProductImage>();
         public DbSet<Cart> Carts => Set<Cart>();
+        public DbSet<Order> Orders => Set<Order>();
+        public DbSet<PaymentMode> PaymentModes => Set<PaymentMode>();
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

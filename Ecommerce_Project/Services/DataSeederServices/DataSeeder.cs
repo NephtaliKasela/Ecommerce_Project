@@ -120,12 +120,12 @@ namespace Ecommerce_Project.Services.DataSeederServices
             await _context.SaveChangesAsync();
         }
 
-        public async Task SeedSubcategories(int numberOfSubcategories)
+        public async Task SeedSubcategories(int numberOfPaimentModes)
         {
-            for (int i = 1; i <= numberOfSubcategories; i++)
+            for (int i = 1; i <= numberOfPaimentModes; i++)
             {
                 Random rnd = new Random();
-                int num = rnd.Next(1, numberOfSubcategories);
+                int num = rnd.Next(1, numberOfPaimentModes);
                 var category = await _context.Categories
                     .FirstOrDefaultAsync(x => x.Id == num);
 
@@ -137,7 +137,7 @@ namespace Ecommerce_Project.Services.DataSeederServices
                 var subcategories = subcategoryFaker.Generate(1);
 
                 _context.SubCategories.AddRange(subcategories);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
             }
         }
 
@@ -174,6 +174,24 @@ namespace Ecommerce_Project.Services.DataSeederServices
                 await _context.Products.AddRangeAsync(products);
                 await _context.SaveChangesAsync();
             }
+        }
+
+        public async Task SeedPaymentModes()
+        {
+            var paymentMode1 = new PaymentMode();
+            paymentMode1.Name = "Direct Check";
+
+            var paymentMode2 = new PaymentMode();
+            paymentMode2.Name = "Bank Transfer";
+
+            var paymentMode3 = new PaymentMode();
+            paymentMode3.Name = "Paypal";
+
+            _context.PaymentModes.AddRange(paymentMode1);
+            _context.PaymentModes.AddRange(paymentMode2);
+            _context.PaymentModes.AddRange(paymentMode3);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -6,5 +6,6 @@ namespace Ecommerce_Project.Models
     {
         public Store? Store { get; set; }
         public List<Cart>? Cart { get; set; }
+        public List<Order>? Orders { get; set; }
     }
 }
