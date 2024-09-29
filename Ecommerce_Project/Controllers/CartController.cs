@@ -30,7 +30,7 @@ namespace Ecommerce_Project.Controllers
 
                 if (userCart.Data.Count > 0)
                 {
-                    return View(userCart.Data);
+                    return View(userCart.Data.Where(x => x.Complete == false).ToList());
                 }
             }
 

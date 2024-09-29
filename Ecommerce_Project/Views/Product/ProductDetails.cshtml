@@ -155,7 +155,33 @@
             <div class="col-lg-5 pb-5">
                 <div id="product-carousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner border">
-                        <div class="carousel-item active">
+                    @{
+                        if (Model.ProductImages.Count > 0)
+                        {
+                            int cout = 0;
+                            foreach(var image in Model.ProductImages)
+                            {
+                                cout++;
+                                if (cout == 1)
+                                {
+                                    <div class="carousel-item active">
+                                        <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Image 1">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="carousel-item">
+                                        <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" alt="Image 1">
+                                    </div>
+                                }
+                            } 
+                        }
+                        else
+                        {
+                            <img class="img-fluid w-100" src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514.jpg" alt="">
+                        }
+                    }
+                        @* <div class="carousel-item active">
                             <img class="w-100 h-100" src="img/product-1.jpg" alt="Image">
                         </div>
                         <div class="carousel-item">
@@ -166,7 +192,7 @@
                         </div>
                         <div class="carousel-item">
                             <img class="w-100 h-100" src="img/product-4.jpg" alt="Image">
-                        </div>
+                        </div> *@
                     </div>
                     <a class="carousel-control-prev" href="#product-carousel" data-slide="prev">
                         <i class="fa fa-2x fa-angle-left text-dark"></i>
@@ -189,7 +215,16 @@
                     </div>
                     <small class="pt-1">(50 Reviews)</small>
                 </div>
-                <h3 class="font-weight-semi-bold mb-4">$@Math.Round(@Model.SoldPrice)</h3>
+                @if(Model.SoldPrice > 0)
+                {
+                    <div class="d-flex">
+                        <h2>$@Math.Round(Model.SoldPrice)</h2><h6 class="text-muted ml-2"><del>$@Math.Round(Model.Price)</del></h6>
+                    </div>
+                }
+                else
+                {
+                    <h3 class="font-weight-semi-bold mb-4">$@Math.Round(@Model.Price)</h3>
+                }
                 <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
                 
                 <div class="d-flex align-items-center mb-4 pt-2">
@@ -351,7 +386,7 @@
                             <div class="col-md-6">
                                 <h4 class="mb-4">1 review for "Colorful Stylish Shirt"</h4>
                                 <div class="media mb-4">
-                                    <img src="img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px;">
+                                    <img src="~/007-eshopper-1.0.0/img/user.jpg" alt="Image" class="img-fluid mr-3 mt-1" style="width: 45px; border-radius: 30px;">
                                     <div class="media-body">
                                         <h6>John Doe<small> - <i>01 Jan 2045</i></small></h6>
                                         <div class="text-primary mb-2">

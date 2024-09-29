@@ -68,21 +68,6 @@ namespace Ecommerce_Project.Services.OrderServices
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<GetCartDTO>>> GetCartsByUserId(ApplicationUser user)
-        {
-            var carts = await _context.Carts
-                .Include(x => x.ApplicationUser)
-                .Include(x => x.Product)
-                .Where(x => x.ApplicationUser.Id == user.Id)
-                .ToListAsync();
-
-            var serviceResponse = new ServiceResponse<List<GetCartDTO>>()
-            {
-                Data = carts.Select(x => _mapper.Map<GetCartDTO>(x)).ToList()
-            };
-            return serviceResponse;
-        }
-
         public Task<ServiceResponse<List<GetOrderDTO>>> GetAllOrders()
         {
             throw new NotImplementedException();
