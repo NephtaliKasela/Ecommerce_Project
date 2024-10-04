@@ -150,26 +150,26 @@
             <div class="col-lg-8">
                 <div class="mb-4">
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
-                    <div class="row">
+                    <div class="row">                                  
                         <div class="col-md-6 form-group">
                             <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John" name="FirstName">
+                            <input class="form-control" type="text" placeholder="John" name="FirstName" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe" name="LastName">
+                            <input class="form-control" type="text" placeholder="Doe" name="LastName" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com" name="Email">
+                            <input class="form-control" type="text" placeholder="example@email.com" name="Email" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789" name="PhoneNumber">
+                            <input class="form-control" type="text" placeholder="+123 456 789" name="PhoneNumber" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street" name="AddressLine1">
+                            <input class="form-control" type="text" placeholder="123 Street" name="AddressLine1" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Address Line 2</label>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>Country</label>
-                            <select class="custom-select" name="CountryId">
+                            <select class="custom-select" name="CountryId" required>
                                 @{
                                     foreach (var country in Model.Countries)
                                     {
@@ -188,7 +188,7 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York" name="City">
+                            <input class="form-control" type="text" placeholder="New York" name="City" required>
                         </div>
                         <div class="col-md-6 form-group">
                             <label>State</label>
@@ -196,9 +196,9 @@
                         </div>
                         <div class="col-md-6 form-group">
                             <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123" name="ZipCode">
+                            <input class="form-control" type="text" placeholder="123" name="ZipCode" required>
                         </div>
-                        <div class="col-md-12 form-group">
+                        @* <div class="col-md-12 form-group">
                             <div class="custom-control custom-checkbox">
                                 <input type="checkbox" class="custom-control-input" id="newaccount">
                                 <label class="custom-control-label" for="newaccount">Create an account</label>
@@ -209,10 +209,10 @@
                                 <input type="checkbox" class="custom-control-input" id="shipto">
                                 <label class="custom-control-label" for="shipto" data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
                             </div>
-                        </div>
+                        </div> *@
                     </div>
                 </div>
-                <div class="collapse mb-4" id="shipping-address">
+                @* <div class="collapse mb-4" id="shipping-address">
                     <h4 class="font-weight-semi-bold mb-4">Shipping Address</h4>
                     <div class="row">
                         <div class="col-md-6 form-group">
@@ -261,8 +261,8 @@
                             <input class="form-control" type="text" placeholder="123">
                         </div>
                     </div>
-                </div>
-            </div>
+                </div> *@
+            </div> 
             <div class="col-lg-4">
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
@@ -327,7 +327,7 @@
                             @{
                                 foreach (var paymentMode in Model.PaymentModes)
                                 {
-                                    <option ,value="@paymentMode.Id">@paymentMode.Name</option>
+                                    <option value="@paymentMode.Id">@paymentMode.Name</option>
                                 }
                             }
                         </select>

@@ -2,6 +2,7 @@
 using Ecommerce_Project.DTOs.Product;
 using Ecommerce_Project.Services.CategoryServices;
 using Ecommerce_Project.Services.ImageServices.ProductImageServices;
+using Ecommerce_Project.Services.OrderServices;
 using Ecommerce_Project.Services.ProductServices;
 using Ecommerce_Project.Services.SubCategoryServices;
 using Microsoft.AspNetCore.Http;
@@ -15,13 +16,15 @@ namespace Ecommerce_Project.Controllers
         private readonly IProductImageServices _productImageServices;
         private readonly ICategoryServices _categoryServices;
         private readonly ISubcategoryServices _subcategoryServices;
+        private readonly IOrderServices _orderServices;
 
-        public AdminController(IProductService productService, IProductImageServices productImageServices, ICategoryServices categoryServices, ISubcategoryServices subcategoryServices)
+        public AdminController(IProductService productService, IProductImageServices productImageServices, ICategoryServices categoryServices, ISubcategoryServices subcategoryServices, IOrderServices orderServices)
         {
             _productService = productService;
             _productImageServices = productImageServices;
             _categoryServices = categoryServices;
             _subcategoryServices = subcategoryServices;
+            _orderServices = orderServices;
         }
         public async Task<ActionResult> Index()
         {
@@ -56,6 +59,16 @@ namespace Ecommerce_Project.Controllers
             if (products.Data.Count != 0)
             { 
                 return View(products.Data); 
+            }
+            return RedirectToAction("Index", "Admin");
+        }
+
+        public async Task<ActionResult> Orders()
+        {
+            var orders = await _orderServices.GetAllOrders();
+            if (orders.Data.Count != 0)
+            {
+                return View(orders.Data);
             }
             return RedirectToAction("Index", "Admin");
         }

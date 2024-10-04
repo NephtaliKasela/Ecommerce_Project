@@ -13,6 +13,7 @@
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
+        public long Quantity { get; set; }
         public decimal Total { get; set; }
         public decimal Payment { get; set; }
 

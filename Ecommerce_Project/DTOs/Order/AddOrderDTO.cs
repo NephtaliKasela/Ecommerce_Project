@@ -14,11 +14,8 @@ namespace Ecommerce_Project.DTOs.Order
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
-        public decimal Total { get; set; }
-        public decimal Payment { get; set; }
 
         // Foreign keys
-        public string ProductId { get; set; }
         public ApplicationUser ApplicationUser { get; set; }
         public string CountryId { get; set; }
         public string PaymentModeId { get; set; }

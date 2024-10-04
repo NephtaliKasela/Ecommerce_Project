@@ -9,6 +9,7 @@ using Ecommerce_Project.DTOs.Category;
 using Ecommerce_Project.DTOs.City;
 using Ecommerce_Project.DTOs.Continent;
 using Ecommerce_Project.DTOs.Country;
+using Ecommerce_Project.DTOs.Order;
 using Ecommerce_Project.DTOs.PaymentMode;
 using Ecommerce_Project.DTOs.Product;
 using Ecommerce_Project.DTOs.Store;
@@ -59,6 +60,10 @@ namespace Ecommerce_Project
             // Cart
             CreateMap<AddCartDTO, Cart>();
             CreateMap<Cart, GetCartDTO>();
+
+            // Order
+            CreateMap<AddOrderDTO, Order>();
+            CreateMap<Order, GetOrderDTO>();
 
             // Cart
             CreateMap<AddPaymentModeDTO, PaymentMode>();

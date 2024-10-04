@@ -45,7 +45,7 @@ namespace Ecommerce_Project.Controllers
                     v.PaymentModes = paymentModes.Data;
                     v.Countries = countries.Data;
 
-                    return View(v);
+                    return View(); 
                 }
             }
 
@@ -54,8 +54,15 @@ namespace Ecommerce_Project.Controllers
 
         public async Task<IActionResult> AddOrder(AddOrderDTO newOrder)
         {
-            await _orderServices.AddOrder(newOrder);
-            return View();
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                newOrder.ApplicationUser = user;
+                await _orderServices.AddOrder(newOrder);
+            }
+            return RedirectToAction("Index", "Home");
         }
     }
 }

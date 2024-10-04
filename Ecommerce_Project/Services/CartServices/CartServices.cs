@@ -55,7 +55,7 @@ namespace Ecommerce_Project.Services.CartServices
             var carts = await _context.Carts
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Product)
-                .Where(x => x.ApplicationUser.Id == user.Id)
+                .Where(x => x.ApplicationUser.Id == user.Id && x.Complete == false)
                 .ToListAsync();
 
             var serviceResponse = new ServiceResponse<List<GetCartDTO>>()
