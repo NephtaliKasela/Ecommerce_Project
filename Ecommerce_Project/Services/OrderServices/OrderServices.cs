@@ -3,6 +3,7 @@ using Ecommerce_Project.Data;
 using Ecommerce_Project.DTOs.Cart;
 using Ecommerce_Project.DTOs.Order;
 using Ecommerce_Project.DTOs.Product;
+using Ecommerce_Project.DTOs.Store;
 using Ecommerce_Project.Models;
 using Ecommerce_Project.Services.CartServices;
 using Ecommerce_Project.Services.OtherServices;
@@ -96,7 +97,7 @@ namespace Ecommerce_Project.Services.OrderServices
 
         public async Task<ServiceResponse<List<GetOrderDTO>>> GetAllOrders()
         {
-            var products = await _context.Orders
+            var orders = await _context.Orders
                .Include(x => x.Product)
                .Include(x => x.Product.ProductImages)
                .Include(x => x.ApplicationUser)
@@ -106,7 +107,25 @@ namespace Ecommerce_Project.Services.OrderServices
 
             var serviceResponse = new ServiceResponse<List<GetOrderDTO>>()
             {
-                Data = products.Select(x => _mapper.Map<GetOrderDTO>(x)).ToList()
+                Data = orders.Select(x => _mapper.Map<GetOrderDTO>(x)).ToList()
+            };
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetOrderDTO>>> GetOrdersBySellerId(int storeId)
+        {
+            var orders = await _context.Orders
+               .Where(x => x.Product.Store.Id == storeId)
+               .Include(x => x.Product)
+               .Include(x => x.Product.ProductImages)
+               .Include(x => x.ApplicationUser)
+               .Include(x => x.Country)
+               .Include(x => x.PaymentMode)
+               .ToListAsync();
+
+            var serviceResponse = new ServiceResponse<List<GetOrderDTO>>()
+            {
+                Data = orders.Select(x => _mapper.Map<GetOrderDTO>(x)).ToList()
             };
             return serviceResponse;
         }

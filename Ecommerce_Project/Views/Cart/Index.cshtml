@@ -170,7 +170,28 @@
                             foreach(var cart in Model)
                             {
                                 <tr>
-                                    <td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"> @cart.Product.Name</td>
+                                    @{
+                                        if (cart.Product.ProductImages.Count > 0)
+                                        {
+                                            var image = cart.Product.ProductImages[0];
+                                            <td>
+                                                <div class="" style="display: flex; align-items: center;">
+
+                                                    <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="max-width: 70px; margin-right: 10px;" alt="@cart.Product.Name">
+
+                                                    <div>
+                                                        @cart.Product.Name
+                                                    </div>
+                                                </div>
+                                            </td>
+
+                                        }
+                                        else
+                                        {
+                                            <td>@cart.Product.Name</td>
+                                        }
+                                    }
+                                    @*<td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"> @cart.Product.Name</td>*@
                                     <td class="align-middle">$@cart.Product.SoldPrice</td>
                                     <td class="align-middle">
                                         <div class="input-group quantity mx-auto" style="width: 100px;">
