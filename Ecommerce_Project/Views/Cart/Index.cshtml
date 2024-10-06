@@ -150,9 +150,9 @@
 
 
     <!-- Cart Start -->
-    <div class="container-fluid pt-5">
+    <div class="container-fluid pt-0">
         <div class="row px-xl-5">
-            <div class="col-lg-8 table-responsive mb-5">
+            @* <div class="col-lg-8 table-responsive mb-5">
                 <table class="table table-bordered text-center mb-0">
                     <thead class="bg-secondary text-dark">
                         <tr>
@@ -191,21 +191,10 @@
                                             <td>@cart.Product.Name</td>
                                         }
                                     }
-                                    @*<td class="align-middle"><img src="img/product-1.jpg" alt="" style="width: 50px;"> @cart.Product.Name</td>*@
                                     <td class="align-middle">$@cart.Product.SoldPrice</td>
                                     <td class="align-middle">
                                         <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            @*<div class="input-group-btn">
-                                                <button class="btn btn-sm btn-primary btn-minus">
-                                                    <i class="fa fa-minus"></i>
-                                                </button>
-                                            </div>*@
                                             <input type="number" class="form-control form-control-sm bg-secondary text-center" min="1" value="@cart.Quantity">
-                                            @*<div class="input-group-btn">
-                                                <button class="btn btn-sm btn-primary btn-plus">
-                                                    <i class="fa fa-plus"></i>
-                                                </button>
-                                            </div>*@
                                         </div>
                                     </td>
                                     <td class="align-middle">$@cart.Total</td>
@@ -216,16 +205,61 @@
                     }
                     </tbody>
                 </table>
+            </div> *@
+            <div class="col-lg-8">
+            @{
+                foreach (var cart in Model)
+                {
+                    <div class="mb-4">
+                        <div class="card" style="border: none; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    @{
+                                        if (cart.Product.ProductImages.Count > 0)
+                                        {
+                                            var image = cart.Product.ProductImages[0];
+                                            <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid m-2" style="border-radius: 5px 0 0 5px; height: auto; " alt="@cart.Product.Name">
+
+                                        }
+                                        else
+                                        {
+                                            <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid m-2" style="border-radius: 5px 0 0 5px; height: auto;" alt="Product Image">
+                                        }
+                                    }
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="card-body" style="padding: 1.25rem;">
+                                        <h5 class="card-title">@cart.Product.Name</h5>
+                                        @if (cart.Product.SoldPrice > 0)
+                                        {
+                                            <p class="card-text">$@cart.Product.SoldPrice</p>
+                                        }
+                                        else
+                                        {
+                                            <p class="card-text">$@cart.Product.Price</p>
+                                        }
+                                        <p class="card-text">Quantity: <span class="text-primary">@cart.Quantity</span></p>
+                                        <div style="display: flex;">
+                                            <a href="#" class="btn btn-danger mr-2" style="border: none;">Remove</a>
+                                            <a href="#" class="btn btn-primary bg-primary" style="border: none;">Proceed to checkout</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
             </div>
             <div class="col-lg-4">
-                <form class="mb-5" action="">
+                @* <form class="mb-5" action="">
                     <div class="input-group">
                         <input type="text" class="form-control p-4" placeholder="Coupon Code">
                         <div class="input-group-append">
                             <button class="btn btn-primary">Apply Coupon</button>
                         </div>
                     </div>
-                </form>
+                </form> *@
                 <form asp-controller="Checkout" asp-action="Index">
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
@@ -259,7 +293,7 @@
                             }
                             <h5 class="font-weight-bold">$@total</h5>
                         </div>
-                        <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button>
+                        @* <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button> *@
                     </div>
                 </div>
                 </form>
