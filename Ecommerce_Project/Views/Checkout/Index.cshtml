@@ -269,34 +269,26 @@
                         <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="font-weight-medium mb-3">Products</h5>
-                        @{
-                            foreach (var cart in Model.Carts)
-                            {
-                                <div class="d-flex justify-content-between">
-                                    <p>@cart.Product.Name</p>
+                        <h5 class="font-weight-medium mb-3">Product</h5>
+                        <div class="d-flex justify-content-between">
+                            <p>@Model.Cart.Product.Name</p>
 
-                                    @{
-                                        decimal totalAmount = 0;
+                            @{
+                                decimal totalAmount = 0;
 
-                                        @if (cart.Product.SoldPrice > 0) totalAmount += Convert.ToDecimal(cart.Product.SoldPrice * cart.Quantity);
-                                        else totalAmount += Convert.ToDecimal(cart.Product.Price * cart.Quantity);
-                                    }
-                                    <p>$@totalAmount</p>
-                                </div>
+                                @if (Model.Cart.Product.SoldPrice > 0) totalAmount += Convert.ToDecimal(Model.Cart.Product.SoldPrice * Model.Cart.Quantity);
+                                else totalAmount += Convert.ToDecimal(Model.Cart.Product.Price * Model.Cart.Quantity);
                             }
-                        }
+                            <p>$@totalAmount</p>
+                        </div>
 
                         <hr class="mt-0">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Subtotal</h6>
                             @{
                                 decimal subtotal = 0;
-                                foreach (var cart in Model.Carts)
-                                {
-                                    if (cart.Product.SoldPrice > 0) subtotal += Convert.ToDecimal(cart.Product.SoldPrice * cart.Quantity);
-                                    else subtotal += Convert.ToDecimal(cart.Product.Price * cart.Quantity);
-                                }
+                                if (Model.Cart.Product.SoldPrice > 0) subtotal += Convert.ToDecimal(Model.Cart.Product.SoldPrice * Model.Cart.Quantity);
+                                else subtotal = Convert.ToDecimal(Model.Cart.Product.Price * Model.Cart.Quantity);
                             }
                             <h6 class="font-weight-medium">$@subtotal</h6>
                         </div>

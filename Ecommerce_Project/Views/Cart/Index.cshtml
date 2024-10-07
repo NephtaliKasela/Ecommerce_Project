@@ -152,66 +152,12 @@
     <!-- Cart Start -->
     <div class="container-fluid pt-0">
         <div class="row px-xl-5">
-            @* <div class="col-lg-8 table-responsive mb-5">
-                <table class="table table-bordered text-center mb-0">
-                    <thead class="bg-secondary text-dark">
-                        <tr>
-                            <th>Products</th>
-                            <th>Price</th>
-                            <th>Quantity</th>
-                            <th>Total</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody class="align-middle">
-                    @{
-                        if(Model.Count > 0)
-                        {
-                            foreach(var cart in Model)
-                            {
-                                <tr>
-                                    @{
-                                        if (cart.Product.ProductImages.Count > 0)
-                                        {
-                                            var image = cart.Product.ProductImages[0];
-                                            <td>
-                                                <div class="" style="display: flex; align-items: center;">
-
-                                                    <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="max-width: 70px; margin-right: 10px;" alt="@cart.Product.Name">
-
-                                                    <div>
-                                                        @cart.Product.Name
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                        }
-                                        else
-                                        {
-                                            <td>@cart.Product.Name</td>
-                                        }
-                                    }
-                                    <td class="align-middle">$@cart.Product.SoldPrice</td>
-                                    <td class="align-middle">
-                                        <div class="input-group quantity mx-auto" style="width: 100px;">
-                                            <input type="number" class="form-control form-control-sm bg-secondary text-center" min="1" value="@cart.Quantity">
-                                        </div>
-                                    </td>
-                                    <td class="align-middle">$@cart.Total</td>
-                                    <td class="align-middle"><button class="btn btn-sm btn-primary"><i class="fa fa-times"></i></button></td>
-                                </tr>
-                            }
-                        }
-                    }
-                    </tbody>
-                </table>
-            </div> *@
             <div class="col-lg-8">
             @{
                 foreach (var cart in Model)
                 {
                     <div class="mb-4">
-                        <div class="card" style="border: none; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+                        <div class="card position-relative" style="border: none; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
                             <div class="row g-0">
                                 <div class="col-md-4">
                                     @{
@@ -238,28 +184,39 @@
                                         {
                                             <p class="card-text">$@cart.Product.Price</p>
                                         }
-                                        <p class="card-text">Quantity: <span class="text-primary">@cart.Quantity</span></p>
+                                        <div class="d-flex align-items-center mb-4">
+                                            <p class="mb-0 mr-3">Quantity:</p>
+                                            <div class="input-group quantity mr-3" style="width: 130px;">
+                                                <input type="number" class="form-control bg-transparent border-0 text-center text-primary" name="Quantity" min="@cart.Product.MinimumOrder" max="@cart.Product.StockQuantity" value="@cart.Quantity" required>
+                                            </div>
+                                        </div>
                                         <div style="display: flex;">
-                                            <a href="#" class="btn btn-danger mr-2" style="border: none;">Remove</a>
-                                            <a href="#" class="btn btn-primary bg-primary" style="border: none;">Proceed to checkout</a>
+                                            <a href="#" class="btn btn-secondary mr-3" style="border: none;">Save</a>
+                                            <a asp-controller="Checkout" asp-action="Index" asp-route-cartId="@cart.Id" class="btn btn-primary bg-primary" style="border: none;">Proceed to checkout</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <a href="" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                <span class=p-5"">
+                                    ×
+                                </span>
+                            </a>
+                            
                         </div>
                     </div>
                 }
             }
+
+            <button type="button" class="btn btn-primary position-relative">
+                Inbox
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    99+
+                    <span class="visually-hidden">unread messages</span>
+                </span>
+            </button>
             </div>
             <div class="col-lg-4">
-                @* <form class="mb-5" action="">
-                    <div class="input-group">
-                        <input type="text" class="form-control p-4" placeholder="Coupon Code">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary">Apply Coupon</button>
-                        </div>
-                    </div>
-                </form> *@
                 <form asp-controller="Checkout" asp-action="Index">
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
@@ -293,7 +250,6 @@
                             }
                             <h5 class="font-weight-bold">$@total</h5>
                         </div>
-                        @* <button class="btn btn-block btn-primary my-3 py-3">Proceed To Checkout</button> *@
                     </div>
                 </div>
                 </form>

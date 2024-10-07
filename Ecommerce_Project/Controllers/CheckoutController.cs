@@ -1,4 +1,6 @@
-﻿using Ecommerce_Project.DTOs.ModelViews;
+﻿using Bogus;
+using Bogus.DataSets;
+using Ecommerce_Project.DTOs.ModelViews;
 using Ecommerce_Project.Models;
 using Ecommerce_Project.Services.CartServices;
 using Ecommerce_Project.Services.CountryServices;
@@ -26,24 +28,32 @@ namespace Ecommerce_Project.Controllers
             _paymentModeServices = paymentModeServices;
             _countryServices = countryServices;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int cartId)
         {
             //Get the current user
             ApplicationUser user = await _userManager.GetUserAsync(User);
 
             if (user != null)
             {
-                var cards = await _cartServices.GetCartsByUserId(user);
-                var paymentModes = await _paymentModeServices.GetAllPaymentModes();
-                var countries = await _countryServices.GetAllCountries();
-                if (cards.Data.Count > 0 && paymentModes.Data.Count > 0 && countries.Data.Count > 0)
-                {
-                    var v = new Order_ModelView();
-                    v.Carts = cards.Data.Where(x => x.Complete == false).ToList();
-                    v.PaymentModes = paymentModes.Data;
-                    v.Countries = countries.Data;
+                var cart = await _cartServices.GetCartById(cartId);
 
-                    return View(v);
+                if (cart.Data is not null)
+                {
+                    var carts = await _cartServices.GetCartsByUserId(user);
+                    if (carts.Data.Contains(cart.Data))
+                    {
+                        var paymentModes = await _paymentModeServices.GetAllPaymentModes();
+                        var countries = await _countryServices.GetAllCountries();
+                        if (paymentModes.Data.Count > 0 && countries.Data.Count > 0)
+                        {
+                            var v = new Order_ModelView();
+                            v.Cart = cart.Data;
+                            v.PaymentModes = paymentModes.Data;
+                            v.Countries = countries.Data;
+
+                            return View(v);
+                        }
+                    }
                 }
             }
 
