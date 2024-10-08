@@ -19,5 +19,6 @@ namespace Ecommerce_Project.DTOs.Order
         public ApplicationUser ApplicationUser { get; set; }
         public string CountryId { get; set; }
         public string PaymentModeId { get; set; }
+        public int CartId { get; set; }
     }
 }

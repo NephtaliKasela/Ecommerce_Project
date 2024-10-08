@@ -1,4 +1,4 @@
-﻿@model Ecommerce_Project.DTOs.ModelViews.Order_ModelView
+﻿@model Ecommerce_Project.DTOs.ModelViews.Checkout_ModelView
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -150,7 +150,8 @@
             <div class="col-lg-8">
                 <div class="mb-4">
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
-                    <div class="row">                                  
+                    <div class="row"> 
+                        <input class="form-control" type="hidden" name="CartId" value="@Model.Cart.Id" required>
                         <div class="col-md-6 form-group">
                             <label>First Name</label>
                             <input class="form-control" type="text" placeholder="John" name="FirstName" required>
@@ -266,20 +267,38 @@
             <div class="col-lg-4">
                 <div class="card border-secondary mb-5">
                     <div class="card-header bg-secondary border-0">
-                        <h4 class="font-weight-semi-bold m-0">Order Total</h4>
+                        <h4 class="font-weight-semi-bold m-0">Order</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="font-weight-medium mb-3">Product</h5>
+                        
+                        <div class="d-flex justify-content-between mb-3">
+                            @{
+                                decimal productPrice = 0;
+
+                                @if (Model.Cart.Product.SoldPrice > 0) productPrice += Convert.ToDecimal(Model.Cart.Product.SoldPrice);
+                                else productPrice += Convert.ToDecimal(Model.Cart.Product.Price);
+                            }
+                            <h5 class="mr-3">$@productPrice</h5>
+                            <div class="p-2 border-secondary" style="border: 1px solid; border-radius: 5px 5px 5px 5px;">
+                                @{
+                                    if (Model.Cart.Product.ProductImages.Count > 0)
+                                    {
+                                        var image = Model.Cart.Product.ProductImages[0];
+                                        <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="height: auto; max-height: 50px;" alt="@Model.Cart.Product.Name">
+
+                                    }
+                                    else
+                                    {
+                                        <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid" style="height: auto; max-height: 50px;" alt="Product Image">
+
+                                    }
+                                }
+                            </div>
+                            
+                        </div>
                         <div class="d-flex justify-content-between">
                             <p>@Model.Cart.Product.Name</p>
-
-                            @{
-                                decimal totalAmount = 0;
-
-                                @if (Model.Cart.Product.SoldPrice > 0) totalAmount += Convert.ToDecimal(Model.Cart.Product.SoldPrice * Model.Cart.Quantity);
-                                else totalAmount += Convert.ToDecimal(Model.Cart.Product.Price * Model.Cart.Quantity);
-                            }
-                            <p>$@totalAmount</p>
+                            <p>(x @Model.Cart.Quantity)</p>
                         </div>
 
                         <hr class="mt-0">

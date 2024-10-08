@@ -4,15 +4,15 @@ using Ecommerce_Project.DTOs.PaymentMode;
 
 namespace Ecommerce_Project.DTOs.ModelViews
 {
-    public class Order_ModelView
+    public class Checkout_ModelView
     {
-        public List<GetPaymentModeDTO> PaymentModes {  get; set; }
-        public List<GetCartDTO> Carts { get; set; }
+        public List<GetPaymentModeDTO> PaymentModes { get; set; }
+        public GetCartDTO Cart { get; set; }
         public List<GetCountryDTO> Countries { get; set; }
 
-        public Order_ModelView()
+        public Checkout_ModelView()
         {
-            Carts = new List<GetCartDTO>();
+            Cart = new GetCartDTO();
             PaymentModes = new List<GetPaymentModeDTO>();
             Countries = new List<GetCountryDTO>();
         }

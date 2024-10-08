@@ -6,11 +6,13 @@ using Ecommerce_Project.Services.CartServices;
 using Ecommerce_Project.Services.CountryServices;
 using Ecommerce_Project.Services.OrderServices;
 using Ecommerce_Project.Services.PaymentModeServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_Project.Controllers
 {
+    [Authorize]
     public class CheckoutController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -37,16 +39,16 @@ namespace Ecommerce_Project.Controllers
             {
                 var cart = await _cartServices.GetCartById(cartId);
 
-                if (cart.Data is not null)
+                if (cart.Data != null)
                 {
-                    var carts = await _cartServices.GetCartsByUserId(user);
-                    if (carts.Data.Contains(cart.Data))
+                    //var carts = await _cartServices.GetCartsByUserId(user);
+                    if (cart.Data.ApplicationUser == user)
                     {
                         var paymentModes = await _paymentModeServices.GetAllPaymentModes();
                         var countries = await _countryServices.GetAllCountries();
                         if (paymentModes.Data.Count > 0 && countries.Data.Count > 0)
                         {
-                            var v = new Order_ModelView();
+                            var v = new Checkout_ModelView();
                             v.Cart = cart.Data;
                             v.PaymentModes = paymentModes.Data;
                             v.Countries = countries.Data;

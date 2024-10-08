@@ -66,9 +66,27 @@ namespace Ecommerce_Project.Services.CartServices
             return serviceResponse;
         }
 
-        public Task<ServiceResponse<GetCartDTO>> GetCartById(int id)
+        public async Task<ServiceResponse<GetCartDTO>> GetCartById(int id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetCartDTO>();
+            try
+            {
+                var cart = await _context.Carts
+                    .Include(x => x.ApplicationUser)
+                    .Include(x => x.Product)
+                    .Include(x => x.Product.ProductImages)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+                if (cart is null) { throw new Exception($"Cart with Id '{id}' not found"); }
+
+                serviceResponse.Data = _mapper.Map<GetCartDTO>(cart);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
         }
     }
 }

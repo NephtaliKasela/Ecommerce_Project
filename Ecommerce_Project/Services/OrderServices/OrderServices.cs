@@ -56,37 +56,33 @@ namespace Ecommerce_Project.Services.OrderServices
             order.ApplicationUser = newOrder.ApplicationUser;
 
             // Get all user carts with uncompleted status
-            var carts = await _context.Carts
+            var cart = await _context.Carts
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Product)
-                .Where(x => x.ApplicationUser == newOrder.ApplicationUser && x.Complete == false)
-                .ToListAsync();
+                .FirstOrDefaultAsync(x => x.Id == newOrder.CartId && x.ApplicationUser == newOrder.ApplicationUser && x.Complete == false);
 
-            if (carts is not null) 
+            if (cart is not null)
             {
-                foreach (var cart in carts) 
+                order.Product = cart.Product;
+                order.Quantity = cart.Quantity;
+
+                if (cart.Product.SoldPrice > 0)
                 {
-                    order.Product = cart.Product;
-                    order.Quantity = cart.Quantity;
-
-                    if(cart.Product.SoldPrice > 0)
-                    {
-                        order.Total = Convert.ToDecimal( cart.Product.SoldPrice * cart.Quantity );
-                    }
-                    else
-                    {
-                        order.Total = Convert.ToDecimal(cart.Product.Price * cart.Quantity);
-                    }
-
-                    // Generate a unique Order Id
-                    order.OrderID = GenerateUniqueInt().ToString();
-
-                    cart.Complete = true;
-
-                    //Add Order to the list of Orders
-                    await _context.Orders.AddAsync(order);
-                    await _context.SaveChangesAsync();
+                    order.Total = Convert.ToDecimal(cart.Product.SoldPrice * cart.Quantity);
                 }
+                else
+                {
+                    order.Total = Convert.ToDecimal(cart.Product.Price * cart.Quantity);
+                }
+
+                // Generate a unique Order Id
+                order.OrderID = GenerateUniqueInt().ToString();
+
+                cart.Complete = true;
+
+                //Add Order to the list of Orders
+                await _context.Orders.AddAsync(order);
+                await _context.SaveChangesAsync();
             }
 
             serviceResponse.Data = await _context.Orders

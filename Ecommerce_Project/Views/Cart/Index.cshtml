@@ -150,7 +150,7 @@
 
 
     <!-- Cart Start -->
-    <div class="container-fluid pt-0">
+    <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8">
             @{
@@ -158,22 +158,24 @@
                 {
                     <div class="mb-4">
                         <div class="card position-relative" style="border: none; border-radius: 5px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                            <div class="row g-0">
-                                <div class="col-md-4">
-                                    @{
-                                        if (cart.Product.ProductImages.Count > 0)
-                                        {
-                                            var image = cart.Product.ProductImages[0];
-                                            <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid m-2" style="border-radius: 5px 0 0 5px; height: auto; " alt="@cart.Product.Name">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="p-2">
+                                        @{
+                                            if (cart.Product.ProductImages.Count > 0)
+                                            {
+                                                var image = cart.Product.ProductImages[0];
+                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="border-radius: 5px 0 0 5px; height: auto; " alt="@cart.Product.Name">
 
+                                            }
+                                            else
+                                            {
+                                                <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid" style="border-radius: 5px 0 0 5px; height: auto;" alt="Product Image">
+                                            }
                                         }
-                                        else
-                                        {
-                                            <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid m-2" style="border-radius: 5px 0 0 5px; height: auto;" alt="Product Image">
-                                        }
-                                    }
+                                    </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-lg-8">
                                     <div class="card-body" style="padding: 1.25rem;">
                                         <h5 class="card-title">@cart.Product.Name</h5>
                                         @if (cart.Product.SoldPrice > 0)
@@ -197,8 +199,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                <span class=p-5"">
+                            <a href="" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                                <span class="">
                                     ×
                                 </span>
                             </a>
@@ -207,14 +209,6 @@
                     </div>
                 }
             }
-
-            <button type="button" class="btn btn-primary position-relative">
-                Inbox
-                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                    99+
-                    <span class="visually-hidden">unread messages</span>
-                </span>
-            </button>
             </div>
             <div class="col-lg-4">
                 <form asp-controller="Checkout" asp-action="Index">
