@@ -7,9 +7,9 @@
     //Layout = "~/Views/Shared/adminLayout.cshtml";
 }
 
-<div class="container mt-5">
+<div class="container-fluid mt-5">
     <div class="row">
-        <div class="col-md-3 col-sm-12">
+        <div class="col-md-2 col-sm-12">
             <ul class="nav flex-column nav-pills">
                 <li class="nav-item">
                     <a class="nav-link active" id="categories-tab" data-bs-toggle="pill" href="#dashboard" role="tab" aria-controls="categories" aria-selected="true">Dashboard</a>
@@ -28,10 +28,38 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-9 col-sm-12">
+        <div class="col-md-10 col-sm-12">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="categories-tab">
                     <h4>Dashboard</h4>
+
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="card" style="background-color: #fff; padding: 1rem; margin: 1rem 0; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                                <div class="card-body">
+                                    <h5 class="card-title">Users</h5>
+                                    <p class="card-text">150</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card" style="background-color: #fff; padding: 1rem; margin: 1rem 0; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                                <div class="card-body">
+                                    <h5 class="card-title">Sellers</h5>
+                                    <p class="card-text">50</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card" style="background-color: #fff; padding: 1rem; margin: 1rem 0; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+                                <div class="card-body">
+                                    <h5 class="card-title">Total Orders</h5>
+                                    <p class="card-text">50</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
                 </div>
             </div>
         </div>
