@@ -39,7 +39,7 @@ namespace Ecommerce_Project.Controllers
             {
                 var cart = await _cartServices.GetCartById(cartId);
 
-                if (cart.Data != null)
+                if (cart.Data != null && cart.Data.Complete == false)
                 {
                     //var carts = await _cartServices.GetCartsByUserId(user);
                     if (cart.Data.ApplicationUser == user)
