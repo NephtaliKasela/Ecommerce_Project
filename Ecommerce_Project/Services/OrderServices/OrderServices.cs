@@ -96,6 +96,7 @@ namespace Ecommerce_Project.Services.OrderServices
             var orders = await _context.Orders
                .Include(x => x.Product)
                .Include(x => x.Product.ProductImages)
+               .Include(x => x.Product.Store)
                .Include(x => x.ApplicationUser)
                .Include(x => x.Country)
                .Include(x => x.PaymentMode)
@@ -114,6 +115,7 @@ namespace Ecommerce_Project.Services.OrderServices
                .Where(x => x.Product.Store.Id == storeId)
                .Include(x => x.Product)
                .Include(x => x.Product.ProductImages)
+               .Include(x => x.Product.Store)
                .Include(x => x.ApplicationUser)
                .Include(x => x.Country)
                .Include(x => x.PaymentMode)
@@ -126,9 +128,31 @@ namespace Ecommerce_Project.Services.OrderServices
             return serviceResponse;
         }
 
-        public Task<ServiceResponse<GetOrderDTO>> GetOrderById(int id)
+        public async Task<ServiceResponse<GetOrderDTO>> GetOrderById(int id)
         {
-            throw new NotImplementedException();
+            var serviceResponse = new ServiceResponse<GetOrderDTO>();
+            try
+            {
+                var order = await _context.Orders
+                    .Include(x => x.Product)
+                    .Include(x => x.Product)
+                    .Include(x => x.Product.ProductImages)
+                    .Include(x => x.Product.Store)
+                    .Include(x => x.ApplicationUser)
+                    .Include(x => x.Country)
+                    .Include(x => x.PaymentMode)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+                if (order is null) { throw new Exception($"Order with Id '{id}' not found"); }
+
+                serviceResponse.Data = _mapper.Map<GetOrderDTO>(order);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+
+            return serviceResponse;
         }
 
         private string GenerateUniqueOrderId()

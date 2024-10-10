@@ -108,7 +108,7 @@
                                                                         <div class="button-icon-btn mg-t-30 butt-mg-t-20">
                                                                             <button class="btn btn-default btn-icon-notika dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="notika-icon notika-menu"></i></button>
                                                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                                <li><a class="dropdown-item" href="#">View</a></li>
+                                                                                <li><a class="dropdown-item" asp-controller="Seller" asp-action="OrderDetails" asp-route-id="@order.Id"><i class="fa fa-eye text-primary"></i> View</a></li>
                                                                                 <li><a class="dropdown-item" asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@order.Id">Update</a></li>
                                                                                 <li><a class="dropdown-item" href="#">Delete</a></li>
                                                                             </ul>
