@@ -6,9 +6,9 @@ namespace Ecommerce_Project.Services.CartServices
 {
     public interface ICartServices
     {
+        Task<ServiceResponse<List<GetCartDTO>>> GetAllCarts();
         Task<ServiceResponse<List<GetCartDTO>>> GetCartsByUserId(ApplicationUser user);
         Task<ServiceResponse<GetCartDTO>> GetCartById(int id);
-        //Task<ServiceResponse<List<Product>>> GetProductsByStoreId(int storeId);
         Task<ServiceResponse<List<GetCartDTO>>> AddCart(AddCartDTO newCart);
         //Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO UpdatedProduct);
         //Task<ServiceResponse<List<GetProductDTO>>> DeleteProduct(int id);

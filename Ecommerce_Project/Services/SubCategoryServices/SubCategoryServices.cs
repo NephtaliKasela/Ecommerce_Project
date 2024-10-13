@@ -4,7 +4,9 @@ using Ecommerce_Project.DTOs.Category;
 using Ecommerce_Project.DTOs.Subcategory;
 using Ecommerce_Project.Models;
 using Ecommerce_Project.Services.CategoryServices;
+using Ecommerce_Project.Services.OtherServices;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Ecommerce_Project.Services.SubCategoryServices
 {
@@ -13,13 +15,15 @@ namespace Ecommerce_Project.Services.SubCategoryServices
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 		private readonly ICategoryServices _categoryServices;
+        private readonly IOtherServices _otherServices;
 
-		public SubcategoryServices(ApplicationDbContext context, IMapper mapper, ICategoryServices categoryServices)
+        public SubcategoryServices(ApplicationDbContext context, IMapper mapper, ICategoryServices categoryServices, IOtherServices otherServices)
         {
             _context = context;
             _mapper = mapper;
 			_categoryServices = categoryServices;
-		}
+            _otherServices = otherServices;
+        }
 
         public async Task<ServiceResponse<List<GetSubcategoryDTO>>> GetAllSubCategories()
         {
@@ -51,12 +55,21 @@ namespace Ecommerce_Project.Services.SubCategoryServices
 		public async Task<ServiceResponse<List<GetSubcategoryDTO>>> AddSubCategory(AddSubcategoryDTO newSubCategory)
         {
 			var serviceResponse = new ServiceResponse<List<GetSubcategoryDTO>>();
-			var subCategory = _mapper.Map<Subcategory>(newSubCategory);
+			var subcategory = _mapper.Map<Subcategory>(newSubCategory);
 
-			var category = GetSubCatCategory(newSubCategory.CategoryId);
-			subCategory.Category = category.Data;
+            bool result; int number;
+            // Get Category
+            (result, number) = _otherServices.CheckIfInteger(newSubCategory.CategoryId);
+            if (result == true)
+            {
+                var category = await _context.Categories.FirstOrDefaultAsync(x => x.Id == number);
+                if (category is not null)
+                {
+                    subcategory.Category = category;
+                }
+            }
 
-			await _context.SubCategories.AddAsync(subCategory);
+			await _context.SubCategories.AddAsync(subcategory);
 			await _context.SaveChangesAsync();
 
 			serviceResponse.Data = await _context.SubCategories
@@ -73,7 +86,7 @@ namespace Ecommerce_Project.Services.SubCategoryServices
             {
                 var subCategory = await _context.SubCategories
                     .FirstOrDefaultAsync(p => p.Id == updatedSubCategory.Id);
-                if (subCategory is null) { throw new Exception($"SubCategory with Id '{updatedSubCategory.Id}' not found"); }
+                if (subCategory is null) { throw new Exception($"Subcategory with Id '{updatedSubCategory.Id}' not found"); }
 
                 subCategory.Name = updatedSubCategory.Name;
                 subCategory.Description = updatedSubCategory.Description;
@@ -97,7 +110,7 @@ namespace Ecommerce_Project.Services.SubCategoryServices
             try
             {
                 var subCategory = await _context.SubCategories.FirstOrDefaultAsync(sc => sc.Id == id);
-                if (subCategory is null) { throw new Exception($"Product with Id '{id}' not found"); }
+                if (subCategory is null) { throw new Exception($"Subcategory with Id '{id}' not found"); }
 
                 _context.SubCategories.Remove(subCategory);
 

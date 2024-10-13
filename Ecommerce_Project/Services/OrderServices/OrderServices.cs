@@ -109,25 +109,6 @@ namespace Ecommerce_Project.Services.OrderServices
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<GetOrderDTO>>> GetOrdersBySellerId(int storeId)
-        {
-            var orders = await _context.Orders
-               .Where(x => x.Product.Store.Id == storeId)
-               .Include(x => x.Product)
-               .Include(x => x.Product.ProductImages)
-               .Include(x => x.Product.Store)
-               .Include(x => x.ApplicationUser)
-               .Include(x => x.Country)
-               .Include(x => x.PaymentMode)
-               .ToListAsync();
-
-            var serviceResponse = new ServiceResponse<List<GetOrderDTO>>()
-            {
-                Data = orders.Select(x => _mapper.Map<GetOrderDTO>(x)).ToList()
-            };
-            return serviceResponse;
-        }
-
         public async Task<ServiceResponse<GetOrderDTO>> GetOrderById(int id)
         {
             var serviceResponse = new ServiceResponse<GetOrderDTO>();
@@ -152,6 +133,41 @@ namespace Ecommerce_Project.Services.OrderServices
                 serviceResponse.Message = ex.Message;
             }
 
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<List<GetOrderDTO>>> GetOrdersBySellerId(int storeId)
+        {
+            var orders = await _context.Orders
+               .Where(x => x.Product.Store.Id == storeId)
+               .Include(x => x.Product)
+               .Include(x => x.Product.ProductImages)
+               .Include(x => x.Product.Store)
+               .Include(x => x.ApplicationUser)
+               .Include(x => x.Country)
+               .Include(x => x.PaymentMode)
+               .ToListAsync();
+
+            var serviceResponse = new ServiceResponse<List<GetOrderDTO>>()
+            {
+                Data = orders.Select(x => _mapper.Map<GetOrderDTO>(x)).ToList()
+            };
+            return serviceResponse;
+        }
+
+        public async Task<ServiceResponse<GetOrderDTO>> GetOrdersByOrderId(string orderId)
+        {
+            var serviceResponse = new ServiceResponse<GetOrderDTO>();
+            var order = await _context.Orders
+               .Include(x => x.Product)
+               .Include(x => x.Product.ProductImages)
+               .Include(x => x.Product.Store)
+               .Include(x => x.ApplicationUser)
+               .Include(x => x.Country)
+               .Include(x => x.PaymentMode)
+               .FirstOrDefaultAsync(x => x.OrderID == orderId);
+
+            serviceResponse.Data = _mapper.Map<GetOrderDTO>(order);
             return serviceResponse;
         }
 

@@ -37,6 +37,8 @@ namespace Ecommerce_Project.Services.StoreServices
         public async Task<ServiceResponse<GetStoreDTO>> GetStoreById(int id)
         {
             var store = await _context.Stores
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Products)
                 .FirstOrDefaultAsync(s => s.Id == id);
 
             var serviceResponse = new ServiceResponse<GetStoreDTO>()
@@ -48,14 +50,14 @@ namespace Ecommerce_Project.Services.StoreServices
 
         public async Task<ServiceResponse<GetStoreDTO>> GetStoreByUserId(string userId)
         {
-            var agent = await _context.Stores
+            var store = await _context.Stores
                 .Include(x => x.ApplicationUser)
                 .Include(x => x.Products)
                 .FirstOrDefaultAsync(x => x.ApplicationUser.Id == userId);
 
             var serviceResponse = new ServiceResponse<GetStoreDTO>()
             {
-                Data = _mapper.Map<GetStoreDTO>(agent)
+                Data = _mapper.Map<GetStoreDTO>(store)
             };
             return serviceResponse;
         }
@@ -69,6 +71,8 @@ namespace Ecommerce_Project.Services.StoreServices
             await _context.SaveChangesAsync();
 
             serviceResponse.Data = await _context.Stores
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Products)
                 .Select(s => _mapper.Map<GetStoreDTO>(s)).ToListAsync();
             return serviceResponse;
         }
@@ -81,7 +85,7 @@ namespace Ecommerce_Project.Services.StoreServices
             {
                 var store = await _context.Stores
                     .FirstOrDefaultAsync(c => c.Id == updatedStore.Id);
-                if (store is null) { throw new Exception($"SubCategory with Id '{updatedStore.Id}' not found"); }
+                if (store is null) { throw new Exception($"Store with Id '{updatedStore.Id}' not found"); }
 
                 store.Name = updatedStore.Name;
                 store.Description = updatedStore.Description;
@@ -105,7 +109,7 @@ namespace Ecommerce_Project.Services.StoreServices
             try
             {
                 var store = await _context.Stores.FirstOrDefaultAsync(s => s.Id == id);
-                if (store is null) { throw new Exception($"Product with Id '{id}' not found"); }
+                if (store is null) { throw new Exception($"Store with Id '{id}' not found"); }
 
                 _context.Stores.Remove(store);
 

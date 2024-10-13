@@ -88,5 +88,20 @@ namespace Ecommerce_Project.Services.CartServices
 
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<List<GetCartDTO>>> GetAllCarts()
+        {
+            var carts = await _context.Carts
+                .Include(x => x.ApplicationUser)
+                .Include(x => x.Product)
+                .Include(x => x.Product.ProductImages)
+                .ToListAsync();
+
+            var serviceResponse = new ServiceResponse<List<GetCartDTO>>()
+            {
+                Data = carts.Select(x => _mapper.Map<GetCartDTO>(x)).ToList()
+            };
+            return serviceResponse;
+        }
     }
 }

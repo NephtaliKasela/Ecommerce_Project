@@ -71,7 +71,7 @@ namespace Ecommerce_Project.Services.ProductServices
                     .Include(p => p.ProductImages)
                     .Where(x => x.Store.Id == storeId).ToListAsync();
 
-                if (products is null) { throw new Exception($"Product with Id '{storeId}' not found"); }
+                if (products is null) { throw new Exception($"Product with Store Id '{storeId}' not found"); }
 
                 serviceResponse.Data = products;
             }
