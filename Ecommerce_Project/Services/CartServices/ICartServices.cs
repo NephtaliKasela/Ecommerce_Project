@@ -10,7 +10,7 @@ namespace Ecommerce_Project.Services.CartServices
         Task<ServiceResponse<List<GetCartDTO>>> GetCartsByUserId(ApplicationUser user);
         Task<ServiceResponse<GetCartDTO>> GetCartById(int id);
         Task<ServiceResponse<List<GetCartDTO>>> AddCart(AddCartDTO newCart);
-        //Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO UpdatedProduct);
-        //Task<ServiceResponse<List<GetProductDTO>>> DeleteProduct(int id);
-    }
+		Task<ServiceResponse<GetCartDTO>> UpdateCart(UpdateCartDTO updatedCart);
+		Task<ServiceResponse<GetCartDTO>> CancelCartById(int id);
+	}
 }

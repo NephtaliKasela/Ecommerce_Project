@@ -10,6 +10,7 @@ namespace Ecommerce_Project.Services.OrderServices
         Task<ServiceResponse<List<GetOrderDTO>>> GetAllOrders();
         Task<ServiceResponse<GetOrderDTO>> GetOrderById(int id);
         Task<ServiceResponse<List<GetOrderDTO>>> GetOrdersBySellerId(int storeId);
+        Task<ServiceResponse<List<GetOrderDTO>>> GetOrdersByUserId(string userId);
         Task<ServiceResponse<GetOrderDTO>> GetOrdersByOrderId(string orderId);
         Task<ServiceResponse<List<GetOrderDTO>>> AddOrder(AddOrderDTO newOrder);
     }

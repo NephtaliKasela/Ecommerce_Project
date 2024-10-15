@@ -218,12 +218,12 @@
                 @if(Model.SoldPrice > 0)
                 {
                     <div class="d-flex">
-                        <h2>$@Math.Round(Model.SoldPrice)</h2><h6 class="text-muted ml-2"><del>$@Math.Round(Model.Price)</del></h6>
+                        <h2>$@Model.SoldPrice</h2><h6 class="text-muted ml-2"><del>$@Model.Price</del></h6>
                     </div>
                 }
                 else
                 {
-                    <h3 class="font-weight-semi-bold mb-4">$@Math.Round(@Model.Price)</h3>
+                    <h3 class="font-weight-semi-bold mb-4">$@Model.Price</h3>
                 }
                 <p class="mb-4">Volup erat ipsum diam elitr rebum et dolor. Est nonumy elitr erat diam stet sit clita ea. Sanc invidunt ipsum et, labore clita lorem magna lorem ut. Erat lorem duo dolor no sea nonumy. Accus labore stet, est lorem sit diam sea et justo, amet at lorem et eirmod ipsum diam et rebum kasd rebum.</p>
                 

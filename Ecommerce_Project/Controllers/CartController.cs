@@ -48,7 +48,47 @@ namespace Ecommerce_Project.Controllers
                 await _cartServices.AddCart(newCart);
             }
 
-            return RedirectToAction("ProductDetails", "Product", new { id = newCart.ProductId });
+			return RedirectToAction("Index", "Home");
+        }
+
+		public async Task<IActionResult> UpdateCart(UpdateCartDTO updatedCart)
+		{
+			//Get the current user
+			ApplicationUser user = await _userManager.GetUserAsync(User);
+
+			if (user != null)
+			{
+				var cart = await _cartServices.GetCartById(updatedCart.Id);
+                if (cart.Data != null) 
+                { 
+                    if(cart.Data.ApplicationUser == user)
+                    {
+						await _cartServices.UpdateCart(updatedCart);
+					}    
+                }
+				
+			}
+
+			return RedirectToAction("Index", "Cart");
+		}
+
+        public async Task<IActionResult> CancellCart(int id)
+        {
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                var cart = await _cartServices.GetCartById(id);
+                if (cart.Data != null)
+                {
+                    if (cart.Data.ApplicationUser == user)
+                    {
+                        await _cartServices.CancelCartById(id);
+                    }
+                }
+            }
+            return RedirectToAction("Index", "Cart");
         }
     }
 }

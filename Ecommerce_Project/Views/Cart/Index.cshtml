@@ -186,20 +186,28 @@
                                         {
                                             <p class="card-text">$@cart.Product.Price</p>
                                         }
-                                        <div class="d-flex align-items-center mb-4">
-                                            <p class="mb-0 mr-3">Quantity:</p>
-                                            <div class="input-group quantity mr-3" style="width: 130px;">
-                                                <input type="number" class="form-control bg-transparent border-0 text-center text-primary" name="Quantity" min="@cart.Product.MinimumOrder" max="@cart.Product.StockQuantity" value="@cart.Quantity" required>
+                                        
+                                            <form asp-controller="Cart" asp-action="UpdateCart">
+                                            <div class="d-flex align-items-center mb-4">
+                                                <p class="mb-0 mr-3">Quantity:</p>
+                                                <div class="input-group quantity mr-3" style="width: 130px;">
+                                                    <input type="hidden" class="form-control bg-transparent border-0 text-center text-primary" name="Id" value="@cart.Id" required>
+                                                    <input type="number" class="form-control bg-transparent border-0 text-center text-primary" name="Quantity" min="@cart.Product.MinimumOrder" max="@cart.Product.StockQuantity" value="@cart.Quantity" required>
+                                                   
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div style="display: flex;">
-                                            <a href="#" class="btn btn-secondary mr-3" style="border: none;">Save</a>
-                                            <a asp-controller="Checkout" asp-action="Index" asp-route-cartId="@cart.Id" class="btn btn-primary bg-primary" style="border: none;">Proceed to checkout</a>
-                                        </div>
+                                            <div style="display: flex;">
+                                                <button class="btn btn-secondary mr-3" style="border: none;">Save</button>
+                                                <a asp-controller="Checkout" asp-action="Index" asp-route-cartId="@cart.Id" class="btn btn-primary bg-primary" style="border: none;">Proceed to checkout</a>
+                                            </div>
+                                            </form>
+                                            
+                                        
+                                        
                                     </div>
                                 </div>
                             </div>
-                            <a href="" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+                            <a asp-controller="Cart" asp-action="CancellCart" asp-route-id="@cart.Id" class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
                                 <span class="">
                                     ×
                                 </span>

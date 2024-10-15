@@ -103,5 +103,61 @@ namespace Ecommerce_Project.Services.CartServices
             };
             return serviceResponse;
         }
+
+		public async Task<ServiceResponse<GetCartDTO>> UpdateCart(UpdateCartDTO updatedCart)
+		{
+			var serviceResponse = new ServiceResponse<GetCartDTO>();
+
+			try
+			{
+				var cart = await _context.Carts
+                    .Include(x => x.ApplicationUser) 
+                    .Include(x => x.Product)
+					.FirstOrDefaultAsync(x => x.Id == updatedCart.Id);
+				if (cart is null) { throw new Exception($"Cart with Id '{updatedCart.Id}' not found"); }
+
+				cart.Quantity = updatedCart.Quantity;
+
+				if (cart.Product.SoldPrice > 0) { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.SoldPrice); }
+				else { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.Price); }
+
+
+				await _context.SaveChangesAsync();
+
+				serviceResponse.Data = _mapper.Map<GetCartDTO>(cart);
+			}
+			catch (Exception ex)
+			{
+				serviceResponse.Success = false;
+				serviceResponse.Message = ex.Message;
+			}
+			return serviceResponse;
+		}
+
+        public async Task<ServiceResponse<GetCartDTO>> CancelCartById(int id)
+        {
+            var serviceResponse = new ServiceResponse<GetCartDTO>();
+
+            try
+            {
+                var cart = await _context.Carts
+                    .Include(x => x.ApplicationUser)
+                    .Include(x => x.Product)
+                    .FirstOrDefaultAsync(x => x.Id == id);
+                if (cart is null) { throw new Exception($"Cart with Id '{id}' not found"); }
+
+                cart.Complete = true;
+
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = _mapper.Map<GetCartDTO>(cart);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
     }
 }
