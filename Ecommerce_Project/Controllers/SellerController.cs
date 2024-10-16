@@ -1,4 +1,6 @@
-﻿using Ecommerce_Project.Models;
+﻿using AutoMapper;
+using Ecommerce_Project.DTOs.ModelViews;
+using Ecommerce_Project.Models;
 using Ecommerce_Project.Services.OrderServices;
 using Ecommerce_Project.Services.ProductServices;
 using Ecommerce_Project.Services.StoreServices;
@@ -16,14 +18,16 @@ namespace Ecommerce_Project.Controllers
         private readonly IStoreServices _storeServices;
         private readonly IProductService _productService;
         private readonly IOrderServices _orderServices;
+        private readonly IMapper _mapper;
 
-        public SellerController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IStoreServices storeServices, IProductService productService, IOrderServices orderServices)
+        public SellerController(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IStoreServices storeServices, IProductService productService, IOrderServices orderServices, IMapper mapper)
         {
             _userManager = userManager;
             _roleManager = roleManager;
             _storeServices = storeServices;
             _productService = productService;
             _orderServices = orderServices;
+            _mapper = mapper;
         }
 
         public async Task<IActionResult> Dashboard()
@@ -36,7 +40,15 @@ namespace Ecommerce_Project.Controllers
                 var store = await _storeServices.GetStoreByUserId(user.Id);
                 if (store.Data != null) 
                 {
-                    return View(store.Data);
+                    var orders = await _orderServices.GetOrdersBySellerId(store.Data.Id);
+                    var products = await _productService.GetProductsByStoreId(store.Data.Id);
+
+                    var v = new Seller_ModelView();
+                    v.Store = store.Data;
+                    v.Orders = orders.Data;
+                    v.Products = products.Data;
+
+                    return View(v);
                 }
             }
             return RedirectToAction("SellerRegistration");
@@ -71,7 +83,7 @@ namespace Ecommerce_Project.Controllers
                 if (store.Data != null)
                 {
                     var products = await _productService.GetProductsByStoreId(store.Data.Id);
-                    store.Data.Products = products.Data;
+                    store.Data.Products = products.Data.Select(x => _mapper.Map<Product>(x)).ToList();
                     return View(store.Data);
                 }
             }

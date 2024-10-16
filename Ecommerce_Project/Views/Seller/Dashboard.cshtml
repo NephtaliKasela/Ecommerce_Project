@@ -1,4 +1,4 @@
-﻿@model Ecommerce_Project.DTOs.Store.GetStoreDTO
+﻿@model Ecommerce_Project.DTOs.ModelViews.Seller_ModelView
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,29 +25,150 @@
         <div class="col-md-10 col-sm-12">
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="dashboard" role="tabpanel" aria-labelledby="categories-tab">
-                    <h3>Welcome <span class="text-primary">@Model.ApplicationUser.UserName</span></h3>
-                    <h7>Seller Dashboard</h7>
+                    
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-xxl-6">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="alert alert-primary text-truncate mb-3" role="alert">
+                                            We regret to inform you that our server is currently experiencing technical difficulties.
+                                        </div>
+                                    </div>
 
-                    <div class="row">
-                        <div class="col-md-4 mb-4">
-                            <div class="card" style="background-color: #fff; padding: 1rem; margin: 1rem 0; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Orders</h5>
-                                    <p class="card-text">150</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 mb-4">
-                            <div class="card" style="background-color: #fff; padding: 1rem; margin: 1rem 0; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Sellers</h5>
-                                    <p class="card-text">50</p>
-                                </div>
-                            </div>
+                                    <div class="col-md-6">
+                                        <div class="card overflow-hidden mb-4">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="justify-content-center align-items-center rounded" style="text-align:center;">
+                                                            <i class="fa fa-shopping-basket bg-secondary text-primary py-3 px-4" style="font-size: 25px; text-align:center;  border-radius: 15px;"></i>
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                    <div class="col-8 text-end">
+                                                        <p class="text-muted mb-0 text-truncate">Total Orders</p>
+                                                        <h3 class="text-dark mt-1 mb-0">@Model.Orders.Count</h3>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row-->
+                                            </div> <!-- end card body -->
+                                            <div class="card-footer py-2 bg-secondary bg-opacity-50">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <span class="text-success"> <i class="bx bxs-up-arrow fs-12"></i> 2.3%</span>
+                                                        <span class="text-muted ms-1 fs-12">Last Week</span>
+                                                    </div>
+                                                    <a href="#!" class="text-reset fw-semibold fs-12"><i class="fa fa-eye text-primary"></i></a>
+                                                </div>
+                                            </div> <!-- end card body -->
+                                        </div> <!-- end card -->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-6">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="justify-content-center align-items-center rounded" style="text-align:center;">
+                                                            <i class="fa fa-motorcycle bg-secondary text-primary py-3 px-4" style="font-size: 25px; text-align:center; border-radius: 15px;"></i>
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                    <div class="col-8 text-end">
+                                                        <p class="text-muted mb-0 text-truncate">Total Products</p>
+                                                        <h3 class="text-dark mt-1 mb-0">@Model.Products.Count</h3>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row-->
+                                            </div> <!-- end card body -->
+                                            <div class="card-footer py-2 bg-secondary bg-opacity-50">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <span class="text-success"> <i class="bx bxs-up-arrow fs-12"></i> 8.1%</span>
+                                                        <span class="text-muted ms-1 fs-12">Last Month</span>
+                                                    </div>
+                                                    <a href="#!" class="text-reset fw-semibold fs-12"><i class="fa fa-eye text-primary"></i></a>
+                                                </div>
+                                            </div> <!-- end card body -->
+                                        </div> <!-- end card -->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-6">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="justify-content-center align-items-center rounded" style="text-align:center;">
+                                                            <i class="fa fa-thumbs-up  bg-secondary text-primary py-3 px-4" style="font-size: 25px; text-align:center;  border-radius: 15px;"></i>
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                    <div class="col-8 text-end">
+                                                        <p class="text-muted mb-0 text-truncate">Deals</p>
+                                                        <h3 class="text-dark mt-1 mb-0">@Model.Orders.Count</h3>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row-->
+                                            </div> <!-- end card body -->
+                                            <div class="card-footer py-2 bg-secondary bg-opacity-50">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <span class="text-danger"> <i class="bx bxs-down-arrow fs-12"></i> 0.3%</span>
+                                                        <span class="text-muted ms-1 fs-12">Last Month</span>
+                                                    </div>
+                                                    <a href="#!" class="text-reset fw-semibold fs-12"><i class="fa fa-eye text-primary"></i></a>
+                                                </div>
+                                            </div> <!-- end card body -->
+                                        </div> <!-- end card -->
+                                    </div> <!-- end col -->
+                                    <div class="col-md-6">
+                                        <div class="card overflow-hidden">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <div class="justify-content-center align-items-center rounded" style="text-align:center;">
+                                                            <i class="fa fa-credit-card bg-secondary text-primary py-3 px-4" style="font-size: 25px; text-align:center; border-radius: 15px;"></i>
+                                                        </div>
+                                                    </div> <!-- end col -->
+                                                    <div class="col-8 text-end">
+                                                        <p class="text-muted mb-0 text-truncate">Booked Revenue</p>
+                                                        <h3 class="text-dark mt-1 mb-0">$@Model.Orders.Max(x => x.Total)</h3>
+                                                    </div> <!-- end col -->
+                                                </div> <!-- end row-->
+                                            </div> <!-- end card body -->
+                                            <div class="card-footer py-2 bg-secondary bg-opacity-50">
+                                                <div class="d-flex align-items-center justify-content-between">
+                                                    <div>
+                                                        <span class="text-danger"> <i class="bx bxs-down-arrow fs-12"></i> 10.6%</span>
+                                                        <span class="text-muted ms-1 fs-12">Last Month</span>
+                                                    </div>
+                                                    <a href="#!" class="text-reset fw-semibold fs-12"><i class="fa fa-eye text-primary"></i></a>
+                                                </div>
+                                            </div> <!-- end card body -->
+                                        </div> <!-- end card -->
+                                    </div> <!-- end col -->
+                                </div> <!-- end row -->
+                            </div> <!-- end col -->
+
+                            <div class="col-xxl-6">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <h4 class="card-title">Performance</h4>
+                                            <div>
+                                                <button type="button" class="btn btn-sm btn-outline-light">ALL</button>
+                                                <button type="button" class="btn btn-sm btn-outline-light">1M</button>
+                                                <button type="button" class="btn btn-sm btn-outline-light">6M</button>
+                                                <button type="button" class="btn btn-sm btn-outline-light active">1Y</button>
+                                            </div>
+                                        </div> <!-- end card-title-->
+
+                                        <div dir="ltr">
+                                            <div id="dash-performance-chart" class="apex-charts"></div>
+                                        </div>
+                                    </div> <!-- end card body -->
+                                </div> <!-- end card -->
+                            </div> <!-- end col -->
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+

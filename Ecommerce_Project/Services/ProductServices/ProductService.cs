@@ -60,9 +60,9 @@ namespace Ecommerce_Project.Services.ProductServices
             return serviceResponse;
         }
 
-        public async Task<ServiceResponse<List<Product>>> GetProductsByStoreId(int storeId)
+        public async Task<ServiceResponse<List<GetProductDTO>>> GetProductsByStoreId(int storeId)
         {
-            var serviceResponse = new ServiceResponse<List<Product>>();
+            var serviceResponse = new ServiceResponse<List<GetProductDTO>>();
             try
             {
                 var products = await _context.Products
@@ -73,7 +73,7 @@ namespace Ecommerce_Project.Services.ProductServices
 
                 if (products is null) { throw new Exception($"Product with Store Id '{storeId}' not found"); }
 
-                serviceResponse.Data = products;
+                serviceResponse.Data = products.Select(x => _mapper.Map<GetProductDTO>(x)).ToList();
             }
             catch (Exception ex)
             {

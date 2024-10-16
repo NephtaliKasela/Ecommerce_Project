@@ -39,7 +39,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="font-weight-semi-bold">Id</th>
-                                                        <th class="font-weight-semi-bold">Name</th>
+                                                        <th class="font-weight-semi-bold">Product</th>
                                                         <th class="font-weight-semi-bold">Minimum Order</th>
                                                         <th class="font-weight-semi-bold">Stock Quantity</th>
                                                         <th class="font-weight-semi-bold">Brand</th>
@@ -65,7 +65,7 @@
                                                                         <td>
                                                                             <div class="" style="display: flex; align-items: center;">
 
-                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid mr-2" style="max-width: 70px;" alt="@product.Name">
+                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@product.Name">
 
                                                                                 <div>
                                                                                     @product.Name

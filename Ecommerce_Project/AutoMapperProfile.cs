@@ -53,6 +53,7 @@ namespace Ecommerce_Project
             CreateMap<AddStoreDTO, Store>();
 
             // Product
+            CreateMap<GetProductDTO, Product>();
             CreateMap<AddProductDTO, Product>();
             CreateMap<Product, GetProductDTO>();
             CreateMap<UpdateProductDTO, GetProductDTO>();

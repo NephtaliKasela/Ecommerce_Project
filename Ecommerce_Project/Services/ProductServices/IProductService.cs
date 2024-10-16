@@ -8,7 +8,7 @@ namespace Ecommerce_Project.Services.ProductServices
     {
         Task<ServiceResponse<List<GetProductDTO>>> GetAllProducts();
         Task<ServiceResponse<GetProductDTO>> GetProductById(int id);
-        Task<ServiceResponse<List<Product>>> GetProductsByStoreId(int storeId);
+        Task<ServiceResponse<List<GetProductDTO>>> GetProductsByStoreId(int storeId);
         Task<ServiceResponse<List<GetProductDTO>>> AddProduct(AddProductDTO newProduct);
         Task<ServiceResponse<GetProductDTO>> UpdateProduct(UpdateProductDTO UpdatedProduct);
         Task<ServiceResponse<List<GetProductDTO>>> DeleteProduct(int id);
