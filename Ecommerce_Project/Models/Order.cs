@@ -14,8 +14,9 @@
         public string State { get; set; }
         public string ZipCode { get; set; }
         //public decimal Price { get; set; }
+        //public decimal Discount { get; set; }
         public long Quantity { get; set; }
-        public decimal Total { get; set; }
+        public decimal Total { get; set; }  // Amount
         public decimal Payment { get; set; } // bool
 
         // Foreign keys
