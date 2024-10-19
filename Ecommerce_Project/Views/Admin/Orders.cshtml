@@ -46,27 +46,19 @@
                                                         <th>Product</th>
                                                         <th>OrderId</th>
                                                         <th>FirstName</th>
-                                                        <th>LastName</th>
-                                                        <th>Email</th>
-                                                        <th>PhoneNumber</th>
-                                                        <th>AddressLine1</th>
-                                                        <th>AddressLine2</th>
                                                         <th>Country</th>
-                                                        <th>City</th>
-                                                        <th>State</th>
-                                                        <th>ZipCode</th>
-                                                        @*<th>UserId</th>*@
-                                                        <th>Quantity</th>
+                                                        <th style="text-align:center;">Quantity</th>
                                                         <th>Total</th>
                                                         <th>Payment Mode</th>
-                                                        <th>Actions</th>
+                                                        <th style="text-align:right;">Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     @{
                                                         int count = 0;
-                                                        foreach (var order in Model)
+                                                        for (int i = Model.Count - 1; i >= 0; i--)
                                                         {
+                                                            var order = Model[i];
                                                             count++;
                                                             <tr>
                                                                 <td>@count</td>
@@ -77,7 +69,7 @@
                                                                         <td>
                                                                             <div class="" style="display: flex; align-items: center;">
 
-                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="max-width: 70px; margin-right: 10px;" alt="@order.Product.Name">
+                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@order.Product.Name">
 
                                                                                 <div>
                                                                                     @order.Product.Name
@@ -91,31 +83,17 @@
                                                                         <td>@order.Product.Name</td>
                                                                     }
                                                                 }
-                                                                <td><mark> @order.OrderID </mark></td>
+                                                                <td><mark class="px-2"> @order.OrderID </mark></td>
                                                                 <td>@order.FirstName</td>
-                                                                <td>@order.LastName</td>
-                                                                <td>@order.Email</td>
-                                                                <td>@order.PhoneNumber</td>
-                                                                <td>@order.AddressLine1</td>
-                                                                <td>@order.AddressLine2</td>
                                                                 <td>@order.Country.Name</td>
-                                                                <td>@order.City</td>
-                                                                <td>@order.State</td>
-                                                                <td>@order.ZipCode</td>
-                                                                @*<td>@order.ApplicationUser.Id</td>*@
-                                                                <td>@order.Quantity</td>
-                                                                <td>@order.Total</td>
+                                                                <td style="text-align:center;">@order.Quantity</td>
+                                                                <td>$@order.Total</td>
                                                                 <td>@order.PaymentMode.Name</td>
-                                                                <td>
-                                                                    <div class="btn-demo-notika mg-t-30">
-                                                                        <div class="button-icon-btn mg-t-30 butt-mg-t-20">
-                                                                            <button class="btn btn-default btn-icon-notika dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="notika-icon notika-menu"></i></button>
-                                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                                <li><a class="dropdown-item" href="#">View</a></li>
-                                                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@order.Id">Update</a></li>
-                                                                                <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                                            </ul>
-                                                                        </div>
+                                                                <td style="text-align:right;">
+                                                                    <div class="d-flex justify-content-end">
+                                                                        <a asp-controller="Seller" asp-action="OrderDetails" asp-route-id="@order.Id" class="btn btn-light btn-sm"><i class="fa fa-eye text-primary"></i></a>
+                                                                        <a asp-controller="Seller" asp-action="OrderDetails" asp-route-id="@order.Id" class="btn btn-light btn-sm"><i class="fa fa-magic text-primary"></i></a>
+                                                                        <a asp-controller="Seller" asp-action="OrderDetails" asp-route-id="@order.Id" class="btn btn-light btn-sm"><i class="fa fa-minus-square text-primary"></i></a>
                                                                     </div>
                                                                 </td>
                                                             </tr>

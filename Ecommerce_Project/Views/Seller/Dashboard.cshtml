@@ -10,7 +10,7 @@
 <div class="container-fluid mt-5">
     <div class="row">
         <div class="col-md-2 col-sm-12">
-            <div class="border border-primary mb-4">
+            <div class="border bg-primary mb-4">
                 <ul class="nav flex-column nav-pills">
                     <li class="nav-item">
                         <a class="nav-link active" asp-controller="Seller" asp-action="Dashboard">Dashboard</a>
@@ -30,7 +30,7 @@
                     
                     <div class="container-fluid">
                         <div class="row">
-                            <div class="col-xxl-6">
+                            <div class="col-xxl-7">
                                 <div class="row">
                                     <div class="col-12">
                                         <div class="alert alert-primary text-truncate mb-3" role="alert">
@@ -127,7 +127,14 @@
                                                     </div> <!-- end col -->
                                                     <div class="col-8 text-end">
                                                         <p class="text-muted mb-0 text-truncate">Booked Revenue</p>
-                                                        <h3 class="text-dark mt-1 mb-0">$@Model.Orders.Max(x => x.Total)</h3>
+                                                        @{
+                                                            decimal revenue = 0;
+                                                            foreach(var order in Model.Orders)
+                                                            {
+                                                                revenue += order.Total;
+                                                            }
+                                                        }
+                                                        <h3 class="text-dark mt-1 mb-0">$@revenue</h3>
                                                     </div> <!-- end col -->
                                                 </div> <!-- end row-->
                                             </div> <!-- end card body -->
@@ -145,7 +152,7 @@
                                 </div> <!-- end row -->
                             </div> <!-- end col -->
 
-                            <div class="col-xxl-6">
+                            <div class="col-xxl-5">
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center">

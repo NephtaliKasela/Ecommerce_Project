@@ -132,7 +132,7 @@ namespace Ecommerce_Project.Services.ProductServices
                 if (product is null) { throw new Exception($"Product with Id '{updatedProduct.Id}' not found"); }
 
                 product.Name = updatedProduct.Name;
-                product.Price = updatedProduct.Price;
+                //product.Discount = updatedProduct.Disc;
                 product.ShortDescription = updatedProduct.ShortDescription;
                 product.LongDescription = updatedProduct.LongDescription;
 

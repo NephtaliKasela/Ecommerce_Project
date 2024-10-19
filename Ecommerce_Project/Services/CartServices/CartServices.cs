@@ -35,7 +35,7 @@ namespace Ecommerce_Project.Services.CartServices
                 {
                     cart.Product = product;
 
-                    if (cart.Product.SoldPrice > 0) { cart.Total = newCart.Quantity * Convert.ToDecimal(product.SoldPrice); }
+                    if (cart.Product.Discount > 0) { cart.Total = (newCart.Quantity * Convert.ToDecimal(product.Discount)) - ((newCart.Quantity * Convert.ToDecimal(product.Discount)) / 100); }
                     else { cart.Total = newCart.Quantity * Convert.ToDecimal(product.Price); }
 
                     //Save cart
@@ -118,7 +118,7 @@ namespace Ecommerce_Project.Services.CartServices
 
 				cart.Quantity = updatedCart.Quantity;
 
-				if (cart.Product.SoldPrice > 0) { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.SoldPrice); }
+				if (cart.Product.Discount > 0) { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.Price - (cart.Product.Price * Convert.ToDecimal(cart.Product.Discount / 100))); }
 				else { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.Price); }
 
 

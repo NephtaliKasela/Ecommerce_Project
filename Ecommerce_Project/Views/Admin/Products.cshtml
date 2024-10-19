@@ -63,20 +63,20 @@
                                                             <tr>
                                                                 <td>@product.Id</td>
                                                                 @{
-                                                                    if (product.ProductImages.Count > 0)
+                                                                    if (product.ProductImages is not null && product.ProductImages.Count > 0)
                                                                     {
                                                                         var image = product.ProductImages[0];
                                                                         <td>
                                                                             <div class="" style="display: flex; align-items: center;">
 
-                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="max-width: 100px; margin-right: 10px;" alt="@product.Name">
-                                                                               
+                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@product.Name">
+
                                                                                 <div>
                                                                                     @product.Name
                                                                                 </div>
                                                                             </div>
                                                                         </td>
-                                                                        
+
                                                                     }
                                                                     else
                                                                     {

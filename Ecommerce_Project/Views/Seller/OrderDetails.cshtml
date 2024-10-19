@@ -146,9 +146,10 @@
                                                             </td>
                                                             <td>@Model.Quantity</td>
                                                             @{
-                                                                @if (Model.Product.SoldPrice > 0)
+                                                                @if (Model.Product.Discount > 0)
                                                                 {
-                                                                    <td>$@Model.Product.SoldPrice</td>
+                                                                    decimal price = Model.Product.Price - (Model.Product.Price * Convert.ToDecimal(Model.Product.Discount / 100));
+                                                                    <td>$</td>
                                                                 }
                                                                 else 
                                                                 {
@@ -174,7 +175,7 @@
                                                             <p class="mb-0">@Model.Product.Store.Name</p>
                                                         </div>
                                                         <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                                                            <i class="fa fa-university bg-secondary text-info p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
+                                                            <i class="fa fa-university bg-secondary text-primary p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -185,7 +186,7 @@
                                                             <p class="mb-0">April 23 , 2024</p>
                                                         </div>
                                                         <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                                                            <i class="fa fa-calendar bg-secondary text-info p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
+                                                            <i class="fa fa-calendar bg-secondary text-primary p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -196,7 +197,7 @@
                                                             <p class="mb-0">@Model.ApplicationUser.UserName</p>
                                                         </div>
                                                         <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                                                            <i class="fa fa-user bg-secondary text-info p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
+                                                            <i class="fa fa-user bg-secondary text-primary p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -204,10 +205,10 @@
                                                     <div class="d-flex align-items-center gap-3 justify-content-between px-3">
                                                         <div>
                                                             <p class="text-dark fw-medium fs-16 mb-1">Order ID</p>
-                                                            <p class="mb-0"><mark class="bg-info text-light px-2">@Model.OrderID</mark></p>
+                                                            <p class="mb-0"><mark class="bg-secondary px-2">@Model.OrderID</mark></p>
                                                         </div>
                                                         <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                                                            <i class="fa fa-unlock bg-secondary text-info p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
+                                                            <i class="fa fa-unlock bg-secondary text-primary p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -273,7 +274,7 @@
                                 </div>
                                 <div class="card-body border-secondary">
                                     <div class="d-flex align-items-center gap-3 mb-3">
-                                        <i class="fa fa-credit-card bg-secondary text-info p-3" style="font-size: 25px; text-align:center;  border-radius: 10px;"></i>
+                                        <i class="fa fa-credit-card bg-secondary text-primary p-3" style="font-size: 25px; text-align:center;  border-radius: 10px;"></i>
                                         <div>
                                             <p class="mb-1 text-dark" style="font-size: 15px;">Master Card</p>
                                             <p class="mb-0 text-dark">xxxx xxxx xxxx 7812</p>
@@ -295,7 +296,7 @@
                                 <div class="card-body">
                                     <div class="d-flex align-items-center gap-2">
                                         <div class="d-flex justify-content-center align-items-center rounded mr-3" style="text-align: center;">
-                                            <i class="fa fa-user bg-secondary text-info p-3" style="font-size: 20px; border-radius: 10px;"></i>
+                                            <i class="fa fa-user bg-secondary text-primary p-3" style="font-size: 20px; border-radius: 10px;"></i>
                                         </div>
                                         <div>
                                             <p class="mb-1">@Model.FirstName</p>

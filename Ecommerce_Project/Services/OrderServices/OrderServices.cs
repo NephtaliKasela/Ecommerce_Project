@@ -66,17 +66,26 @@ namespace Ecommerce_Project.Services.OrderServices
                 order.Product = cart.Product;
                 order.Quantity = cart.Quantity;
 
-                if (cart.Product.SoldPrice > 0)
+                if (cart.Product.Discount > 0)
                 {
-                    order.Total = Convert.ToDecimal(cart.Product.SoldPrice * cart.Quantity);
+                    order.Amount = Convert.ToDecimal((cart.Product.Price * cart.Quantity ) - ((cart.Product.Price * cart.Quantity) * Convert.ToDecimal(cart.Product.Discount / 100)));
+                    order.Price = cart.Product.Price - ((cart.Product.Price * Convert.ToDecimal(cart.Product.Discount / 100)));
                 }
                 else
                 {
-                    order.Total = Convert.ToDecimal(cart.Product.Price * cart.Quantity);
+                    order.Amount = Convert.ToDecimal(cart.Product.Price * cart.Quantity);
+                    order.Price = cart.Product.Price;
                 }
+
+                order.Discount = cart.Product.Discount;
 
                 // Generate a unique Order Id
                 order.OrderID = GenerateUniqueInt().ToString();
+                
+                order.Product.StockQuantity -= order.Quantity;
+                order.Status = Status.Pending.ToString();
+
+                order.RegistrationDate = DateTime.Now;
 
                 cart.Complete = true;
 

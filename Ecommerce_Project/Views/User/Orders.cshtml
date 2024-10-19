@@ -39,7 +39,7 @@
                                                         <th>No</th>
                                                         <th>Product</th>
                                                         <th>OrderId</th>
-                                                        <th>Quantity</th>
+                                                        <th class="text-center">Quantity</th>
                                                         <th>Total</th>
                                                         <th>Payment Mode</th>
                                                         <th>Actions</th>
@@ -48,8 +48,9 @@
                                                 <tbody>
                                                     @{
                                                         int count = 0;
-                                                        foreach (var order in Model)
+                                                        for (int i = Model.Count - 1; i >= 0; i--)
                                                         {
+                                                            var order = Model[i];
                                                             count++;
                                                             <tr>
                                                                 <td>@count</td>
@@ -75,8 +76,8 @@
                                                                     }
                                                                 }
                                                                 <td><mark> @order.OrderID </mark></td>
-                                                                <td>@order.Quantity</td>
-                                                                <td>@order.Total</td>
+                                                                <td class="text-center">@order.Quantity</td>
+                                                                <td>$@order.Total</td>
                                                                 <td>@order.PaymentMode.Name</td>
                                                                 <td>
                                                                     <div class="btn-demo-notika mg-t-30">
