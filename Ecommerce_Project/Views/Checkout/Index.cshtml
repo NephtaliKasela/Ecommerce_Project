@@ -275,8 +275,8 @@
                             @{
                                 decimal productPrice = 0;
 
-                                @if (Model.Cart.Product.Discount > 0) productPrice = Model.Cart.Product.Price - ((Model.Cart.Product.Price * Convert.ToDecimal(Model.Cart.Product.Discount))/100);
-                                else productPrice = Convert.ToDecimal(Model.Cart.Product.Price);
+                                @if (Model.Cart.Product.SoldPrice > 0) productPrice = Model.Cart.Product.SoldPrice;
+                                else productPrice = Model.Cart.Product.Price;
                             }
                             <h5 class="mr-3">$@productPrice</h5>
                             <div class="p-2 border-secondary" style="border: 1px solid; border-radius: 5px 5px 5px 5px;">
@@ -306,8 +306,8 @@
                             <h6 class="font-weight-medium">Subtotal</h6>
                             @{
                                 decimal subtotal = 0;
-                                if (Model.Cart.Product.Discount > 0) subtotal += Convert.ToDecimal((Model.Cart.Product.Price - ((Model.Cart.Product.Price * Convert.ToDecimal(Model.Cart.Product.Discount)) / 100)) * Model.Cart.Quantity);
-                                else subtotal = Convert.ToDecimal(Model.Cart.Product.Price * Model.Cart.Quantity);
+                                if (Model.Cart.Product.SoldPrice > 0) subtotal += Model.Cart.Product.SoldPrice * Model.Cart.Quantity;
+                                else subtotal = Model.Cart.Product.Price * Model.Cart.Quantity;
                             }
                             <h6 class="font-weight-medium">$@subtotal</h6>
                         </div>

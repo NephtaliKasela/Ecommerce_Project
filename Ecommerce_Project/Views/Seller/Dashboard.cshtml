@@ -131,7 +131,7 @@
                                                             decimal revenue = 0;
                                                             foreach(var order in Model.Orders)
                                                             {
-                                                                revenue += order.Total;
+                                                                revenue += order.Amount;
                                                             }
                                                         }
                                                         <h3 class="text-dark mt-1 mb-0">$@revenue</h3>

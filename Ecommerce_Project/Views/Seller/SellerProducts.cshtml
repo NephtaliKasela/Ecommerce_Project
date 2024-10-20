@@ -47,9 +47,8 @@
                                                         <th class="font-weight-semi-bold">Brand</th>
                                                         <th class="font-weight-semi-bold">Made In</th>
                                                         <th class="font-weight-semi-bold">Price</th>
-                                                        <th class="font-weight-semi-bold">Discount</th>
+                                                        <th class="font-weight-semi-bold">Sold Price</th>
                                                         <th class="font-weight-semi-bold">Category</th>
-                                                        <th class="font-weight-semi-bold">Store</th>
                                                         <th class="font-weight-semi-bold">Publication Date</th>
                                                         <th class="font-weight-semi-bold">Actions</th>
                                                     </tr>
@@ -85,10 +84,9 @@
                                                                 <td>@product.StockQuantity</td>
                                                                 <td>@product.Brand</td>
                                                                 <td>@product.MadeIn</td>
-                                                                <td>@Math.Round(@product.Price)</td>
-                                                                <td>@Math.Round(@product.Discount)</td>
+                                                                <td>$@product.Price</td>
+                                                                <td>$@product.SoldPrice</td>
                                                                 <td>@product.Subcategory.Name</td>
-                                                                <td>@product.Store.Name</td>
                                                                 <td>@product.PublicationDate.ToLongDateString()</td>
                                                                 <td>
                                                                     <div class="btn-demo-notika mg-t-30">

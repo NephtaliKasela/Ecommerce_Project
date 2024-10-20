@@ -39,8 +39,10 @@
                                                         <th>No</th>
                                                         <th>Product</th>
                                                         <th>OrderId</th>
-                                                        <th class="text-center">Quantity</th>
-                                                        <th>Total</th>
+                                                        <th>Price</th>
+                                                        <th style="text-align:center;">Quantity</th>
+                                                        <th>Amount</th>
+                                                        <th>Discount</th>
                                                         <th>Payment Mode</th>
                                                         <th>Actions</th>
                                                     </tr>
@@ -61,7 +63,7 @@
                                                                         <td>
                                                                             <div class="" style="display: flex; align-items: center;">
 
-                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="max-width: 70px; margin-right: 10px;" alt="@order.Product.Name">
+                                                                                <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@order.Product.Name">
 
                                                                                 <div>
                                                                                     @order.Product.Name
@@ -76,20 +78,15 @@
                                                                     }
                                                                 }
                                                                 <td><mark> @order.OrderID </mark></td>
-                                                                <td class="text-center">@order.Quantity</td>
-                                                                <td>$@order.Total</td>
+                                                                <td>$@order.Price</td>
+                                                                <td style="text-align:center;">@order.Quantity</td>
+                                                                <td>$@order.Amount</td>
+                                                                <td>$@order.Discount</td>
                                                                 <td>@order.PaymentMode.Name</td>
                                                                 <td>
-                                                                    <div class="btn-demo-notika mg-t-30">
-                                                                        <div class="button-icon-btn mg-t-30 butt-mg-t-20">
-                                                                            <button class="btn btn-default btn-icon-notika dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"><i class="notika-icon notika-menu"></i></button>
-                                                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                                                <li><a class="dropdown-item" asp-controller="Seller" asp-action="OrderDetails" asp-route-id="@order.Id"><i class="fa fa-eye text-primary"></i> View</a></li>
-                                                                                <li><a class="dropdown-item" asp-controller="Admin" asp-action="UpdateProduct" asp-route-id="@order.Id">Update</a></li>
-                                                                                <li><a class="dropdown-item" href="#">Delete</a></li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
+                                                                    <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-light btn-sm"><i class="fa fa-eye text-primary"></i></a>
+                                                                    <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-light btn-sm"><i class="fa fa-magic text-primary"></i></a>
+                                                                    <a asp-controller="" asp-action="" asp-route-id="" class="btn btn-light btn-sm"><i class="fa fa-times text-primary"></i></a>
                                                                 </td>
                                                             </tr>
                                                         }

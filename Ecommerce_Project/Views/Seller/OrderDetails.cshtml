@@ -37,7 +37,9 @@
                                             <div class="d-flex flex-wrap justify-content-between gap-2">
                                                 <div>
                                                     <h6 class="fw-medium text-dark d-flex align-items-center gap-2"><mark class="bg-secondary px-1">@Model.OrderID</mark><span class="badge bg-success-subtle text-success  px-2 py-1 fs-13">Paid</span><span class="border border-warning text-warning fs-13 px-2 py-1 rounded">In Progress</span></h6>
-                                                    <p class="mb-0" style="font-size: 12px;">Order / Order Details / @Model.OrderID - April 23 , 2024 at 6:23 pm</p>
+                                                    <p class="mb-0" style="font-size: 12px;">
+                                                        Order / Order Details / @Model.OrderID - @Model.RegistrationDate.Date.ToLongDateString() at @Model.RegistrationDate.ToString("hh:mm tt")
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <a href="#!" class="btn btn-secondary" style="font-size: 12px;">Refund</a>
@@ -95,7 +97,11 @@
                                             </div>
                                         </div>
                                         <div class="card-footer d-flex flex-wrap align-items-center justify-content-between bg-transparent gap-2">
-                                            <p class="border rounded mb-0 px-2 py-1 "><i class='bx bx-arrow-from-left align-middle fs-16'></i> Estimated shipping date : <span class="text-dark fw-medium">Apr 25 , 2024</span></p>
+                                            @{
+
+                                                DateTime estimatedTime = @Model.RegistrationDate.AddDays(3);
+                                            }
+                                            <p class="border rounded mb-0 px-2 py-1 "><i class='bx bx-arrow-from-left align-middle fs-16'></i> Estimated shipping date : <span class="text-dark fw-medium">@estimatedTime.ToString("MMMM dd, yyyy")</span></p>
                                             <div>
                                                 <a href="#!" class="btn btn-outline-primary" style="font-size: 15px;">Make As Ready To Ship</a>
                                             </div>
@@ -131,10 +137,11 @@
                                                         <tr>
                                                             <th>Name</th>
                                                             <th>Status</th>
-                                                            <th>Quantity</th>
+                                                            <th style="text-align:center;">Quantity</th>
                                                             <th>Price</th>
                                                             <th>Tax</th>
                                                             <th>Amount</th>
+                                                            <th>Dicount</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -144,20 +151,11 @@
                                                             <td>
                                                                 <span class="badge bg-success-subtle text-success  px-2 py-1 fs-13">Ready</span>
                                                             </td>
-                                                            <td>@Model.Quantity</td>
-                                                            @{
-                                                                @if (Model.Product.Discount > 0)
-                                                                {
-                                                                    decimal price = Model.Product.Price - (Model.Product.Price * Convert.ToDecimal(Model.Product.Discount / 100));
-                                                                    <td>$</td>
-                                                                }
-                                                                else 
-                                                                {
-                                                                    <td>$@Model.Product.Price</td>
-                                                                }
-                                                            }
+                                                            <td style="text-align:center;">@Model.Quantity</td>
+                                                            <td>$@Model.Price</td>
                                                             <td> $0.00</td>
-                                                            <td>$@Model.Total</td>
+                                                            <td>$@Model.Amount</td>
+                                                            <td>$@Model.Discount</td>
                                                         </tr>
                                                     </tbody>
                                                 </table>
@@ -168,29 +166,20 @@
                                     <div class="card border-secondary bg-light-subtle">
                                         <div class="card-body">
                                             <div class="row g-3 g-lg-0">
-                                                <div class="col-lg-3 border-end">
-                                                    <div class="d-flex align-items-center gap-3 justify-content-between px-3">
-                                                        <div>
-                                                            <p class="text-dark fw-medium fs-16 mb-1">Vender</p>
-                                                            <p class="mb-0">@Model.Product.Store.Name</p>
-                                                        </div>
-                                                        <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
-                                                            <i class="fa fa-university bg-secondary text-primary p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-lg-3 border-end">
+                                                <div class="col-lg-4 border-end">
                                                     <div class="d-flex align-items-center gap-3 justify-content-between px-3">
                                                         <div>
                                                             <p class="text-dark fw-medium fs-16 mb-1">Date</p>
-                                                            <p class="mb-0">April 23 , 2024</p>
+                                                            <p class="mb-0">
+                                                                @Model.RegistrationDate.ToString("MMMM dd, yyyy")
+                                                            </p>
                                                         </div>
                                                         <div class="avatar bg-light d-flex align-items-center justify-content-center rounded">
                                                             <i class="fa fa-calendar bg-secondary text-primary p-2" style="font-size: 20px; text-align:center;  border-radius: 10px;"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3 border-end">
+                                                <div class="col-lg-4 border-end">
                                                     <div class="d-flex align-items-center gap-3 justify-content-between px-3">
                                                         <div class="overflow-hidden">
                                                             <p class="text-dark fw-medium fs-16 mb-1">Paid By</p>
@@ -201,7 +190,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-3">
+                                                <div class="col-lg-4">
                                                     <div class="d-flex align-items-center gap-3 justify-content-between px-3">
                                                         <div>
                                                             <p class="text-dark fw-medium fs-16 mb-1">Order ID</p>
@@ -232,7 +221,7 @@
                                                     <td class="px-0">
                                                         <p class="d-flex mb-0 align-items-center gap-1" style="font-size: 15px;"><iconify-icon icon="solar:clipboard-text-broken"></iconify-icon> Sub Total : </p>
                                                     </td>
-                                                    <td class="text-end text-dark fw-medium px-0">$@Model.Total</td>
+                                                    <td class="text-end text-dark fw-medium px-0">$@Model.Amount</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="px-0">
@@ -262,7 +251,7 @@
                                         <p class="fw-medium text-dark mb-0">Total Amount</p>
                                     </div>
                                     <div>
-                                        <p class="font-weight-semi-bold text-dark mb-0">$@Model.Total</p>
+                                        <p class="font-weight-semi-bold text-dark mb-0">$@Model.Amount</p>
                                     </div>
 
                                 </div>

@@ -66,10 +66,10 @@ namespace Ecommerce_Project.Services.OrderServices
                 order.Product = cart.Product;
                 order.Quantity = cart.Quantity;
 
-                if (cart.Product.Discount > 0)
+                if (cart.Product.SoldPrice > 0)
                 {
-                    order.Amount = Convert.ToDecimal((cart.Product.Price * cart.Quantity ) - ((cart.Product.Price * cart.Quantity) * Convert.ToDecimal(cart.Product.Discount / 100)));
-                    order.Price = cart.Product.Price - ((cart.Product.Price * Convert.ToDecimal(cart.Product.Discount / 100)));
+                    order.Amount = cart.Product.SoldPrice * cart.Quantity;
+                    order.Price = cart.Product.SoldPrice;
                 }
                 else
                 {
@@ -77,7 +77,7 @@ namespace Ecommerce_Project.Services.OrderServices
                     order.Price = cart.Product.Price;
                 }
 
-                order.Discount = cart.Product.Discount;
+                order.Discount = (cart.Product.Price * cart.Quantity) - order.Amount;
 
                 // Generate a unique Order Id
                 order.OrderID = GenerateUniqueInt().ToString();

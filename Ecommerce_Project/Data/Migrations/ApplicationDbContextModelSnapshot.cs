@@ -259,6 +259,9 @@ namespace Ecommerce_Project.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("ApplicationUserId")
                         .HasColumnType("nvarchar(450)");
 
@@ -268,6 +271,9 @@ namespace Ecommerce_Project.Data.Migrations
 
                     b.Property<int>("CountryId")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Discount")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -285,9 +291,6 @@ namespace Ecommerce_Project.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Payment")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("PaymentModeId")
                         .HasColumnType("int");
 
@@ -295,18 +298,25 @@ namespace Ecommerce_Project.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
                     b.Property<long>("Quantity")
                         .HasColumnType("bigint");
 
+                    b.Property<DateTime>("RegistrationDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("State")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Total")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ZipCode")
                         .IsRequired()
@@ -353,11 +363,11 @@ namespace Ecommerce_Project.Data.Migrations
                     b.Property<int>("BodyProductId")
                         .HasColumnType("int");
 
-                    b.Property<double>("MinimumPieces")
-                        .HasColumnType("float");
+                    b.Property<long>("MinimumPieces")
+                        .HasColumnType("bigint");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
@@ -399,18 +409,22 @@ namespace Ecommerce_Project.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("float");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("PublicationDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("SerialNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ShortDescription")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("SoldPrice")
-                        .HasColumnType("float");
+                    b.Property<decimal>("SoldPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<long>("StockQuantity")
                         .HasColumnType("bigint");

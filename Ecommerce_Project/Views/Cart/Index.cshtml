@@ -178,10 +178,9 @@
                                 <div class="col-lg-8">
                                     <div class="card-body" style="padding: 1.25rem;">
                                         <h5 class="card-title">@cart.Product.Name</h5>
-                                        @if (cart.Product.Discount > 0)
+                                        @if (cart.Product.SoldPrice > 0)
                                         {
-                                            decimal price = @cart.Product.Price - (@cart.Product.Price * Convert.ToDecimal(@cart.Product.Discount / 100));
-                                            <p class="card-text">$</p>
+                                            <p class="card-text">$@cart.Product.SoldPrice</p>
                                         }
                                         else
                                         {
@@ -232,9 +231,13 @@
                                 decimal subtotal = 0;
                                 foreach (var cart in Model)
                                 {
-                                    if(cart.Product.Discount > 0)
+                                    if(cart.Product.SoldPrice > 0)
                                     {
-                                        subtotal += (Math.Round((cart.Product.Price - (cart.Product.Price * Convert.ToDecimal(cart.Product.Discount / 100))) * cart.Quantity));
+                                        subtotal += cart.Product.SoldPrice * cart.Quantity;
+                                    }
+                                    else
+                                    {
+                                        subtotal += cart.Product.Price * cart.Quantity;
                                     }
                                 }
                             }

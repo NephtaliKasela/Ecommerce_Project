@@ -15,9 +15,13 @@ namespace Ecommerce_Project.DTOs.Order
         public string City { get; set; }
         public string State { get; set; }
         public string ZipCode { get; set; }
+        public decimal Price { get; set; }
+        public decimal Discount { get; set; }
         public long Quantity { get; set; }
-        public decimal Total { get; set; }
-        public decimal Payment { get; set; }
+        public decimal Amount { get; set; }  // Amount
+        //public decimal Payment { get; set; } // bool or payment id
+        public string Status { get; set; } // Pending, Process, Success, Cancel ...
+        public DateTime RegistrationDate { get; set; }
 
         // Foreign keys
         public Models.Product Product { get; set; }

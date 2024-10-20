@@ -8,6 +8,7 @@ namespace Ecommerce_Project.DTOs.Product
         public string ShortDescription { get; set; } = string.Empty;
         public string LongDescription { get; set; } = string.Empty;
         public double Price { get; set; }
+        public decimal SoldPrice { get; set; }
 
         public string Brand { get; set; } = string.Empty;
         public string MadeIn { get; set; } = string.Empty;

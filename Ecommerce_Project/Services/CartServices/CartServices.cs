@@ -35,8 +35,8 @@ namespace Ecommerce_Project.Services.CartServices
                 {
                     cart.Product = product;
 
-                    if (cart.Product.Discount > 0) { cart.Total = (newCart.Quantity * Convert.ToDecimal(product.Discount)) - ((newCart.Quantity * Convert.ToDecimal(product.Discount)) / 100); }
-                    else { cart.Total = newCart.Quantity * Convert.ToDecimal(product.Price); }
+                    if (cart.Product.SoldPrice > 0) { cart.Total = newCart.Quantity * product.SoldPrice; }
+                    else { cart.Total = newCart.Quantity * product.Price; }
 
                     //Save cart
                     _context.Carts.Add(cart);
@@ -118,8 +118,8 @@ namespace Ecommerce_Project.Services.CartServices
 
 				cart.Quantity = updatedCart.Quantity;
 
-				if (cart.Product.Discount > 0) { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.Price - (cart.Product.Price * Convert.ToDecimal(cart.Product.Discount / 100))); }
-				else { cart.Total = updatedCart.Quantity * Convert.ToDecimal(cart.Product.Price); }
+				if (cart.Product.SoldPrice > 0) { cart.Total = updatedCart.Quantity * cart.Product.SoldPrice; }
+				else { cart.Total = updatedCart.Quantity * cart.Product.Price; }
 
 
 				await _context.SaveChangesAsync();

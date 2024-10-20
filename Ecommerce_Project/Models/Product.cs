@@ -11,7 +11,7 @@ namespace Ecommerce_Project.Models
         public string ShortDescription { get; set; }
         public string LongDescription { get; set; } = string.Empty;
         public decimal Price { get; set; }
-        public double Discount { get; set; }
+        public decimal SoldPrice { get; set; }
 
         public string Brand { get; set; } = string.Empty;
         public string MadeIn { get; set; } = string.Empty;
