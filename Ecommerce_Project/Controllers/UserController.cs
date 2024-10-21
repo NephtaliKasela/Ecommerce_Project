@@ -2,11 +2,13 @@
 using Ecommerce_Project.Services.OrderServices;
 using Ecommerce_Project.Services.ProductServices;
 using Ecommerce_Project.Services.StoreServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Ecommerce_Project.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly UserManager<ApplicationUser> _userManager;
@@ -35,6 +37,23 @@ namespace Ecommerce_Project.Controllers
             }
             return RedirectToAction("Index", "Home");
             
+        }
+
+        public async Task<IActionResult> OrderDetails(int orderId)
+        {
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                var order = await _orderServices.GetOrderById(orderId);
+                if (order.Data != null && order.Data.ApplicationUser.Id == user.Id)
+                {
+                    return View(order.Data);
+                }
+            }
+            return RedirectToAction("Index", "Home");
+
         }
     }
 }
