@@ -199,6 +199,30 @@ namespace Ecommerce_Project.Services.OrderServices
             return serviceResponse;
         }
 
+        public async Task<ServiceResponse<GetOrderDTO>> MakeOrderReadyToShip(int orderId)
+        {
+            var serviceResponse = new ServiceResponse<GetOrderDTO>();
+
+            try
+            {
+                var order = await _context.Orders
+                    .FirstOrDefaultAsync(x => x.Id == orderId);
+                if (order is null) { throw new Exception($"order with Id '{orderId}' not found"); }
+
+                order.Status = Status.Ready.ToString();
+
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Data = _mapper.Map<GetOrderDTO>(order);
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Success = false;
+                serviceResponse.Message = ex.Message;
+            }
+            return serviceResponse;
+        }
+
         private string GenerateUniqueOrderId()
         {
             return $"{Guid.NewGuid()}-{DateTime.UtcNow.Ticks}";

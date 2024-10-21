@@ -5,6 +5,7 @@
         Pending,
         Processing,
         Success,
+        Ready,
         Cancalled
     }
 }

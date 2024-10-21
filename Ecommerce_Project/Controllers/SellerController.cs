@@ -123,14 +123,31 @@ namespace Ecommerce_Project.Controllers
                 var store = await _storeServices.GetStoreByUserId(user.Id);
                 if (store.Data != null)
                 {
-                    var orders = await _orderServices.GetOrdersBySellerId(store.Data.Id);
-                    if (orders.Data != null)
+                    var order = await _orderServices.GetOrderById(id);
+                    if (order.Data != null && order.Data.Product.Store.Id == store.Data.Id)
                     {
-                        var order = await _orderServices.GetOrderById(id);
-                        if (order.Data != null && order.Data.Product.Store.Id == store.Data.Id) 
-                        {
-                            return View(order.Data);
-                        }
+                        return View(order.Data);
+                    }
+                }
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> MakeOrderReadyToShip(int orderId)
+        {
+            //Get the current user
+            ApplicationUser user = await _userManager.GetUserAsync(User);
+
+            if (user != null)
+            {
+                var store = await _storeServices.GetStoreByUserId(user.Id);
+                if (store.Data != null)
+                {
+                    var order = await _orderServices.GetOrderById(orderId);
+                    if (order.Data != null && order.Data.Product.Store.Id == store.Data.Id)
+                    {
+                        await _orderServices.MakeOrderReadyToShip(orderId);
+                        return RedirectToAction("OrderDetails", new { id = orderId });
                     }
                 }
             }
