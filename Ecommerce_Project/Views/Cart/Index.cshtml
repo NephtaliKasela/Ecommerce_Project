@@ -153,79 +153,98 @@
     <div class="container-fluid">
         <div class="row px-xl-5">
             <div class="col-lg-8">
-            <div class="bsc-tbl table-responsive">
-                <table class="table table-sc-ex">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th style="text-align:right;">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @{
-                            int count = 0;
-                            for (int i = Model.Count - 1; i >= 0; i--)
-                            {
-                                var cart = Model[i];
-                                count++;
-                                <form asp-controller="Cart" asp-action="UpdateCart">
-                                <tr class="align-items-center">
-                                        @{
-                                            if (cart.Product.ProductImages.Count > 0)
-                                            {
-                                                var image = cart.Product.ProductImages[0];
-                                            <td>
-                                                <div class="" style="display: flex; align-items: center;">
-
-                                                    <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@cart.Product.Name">
-
-                                                    <div>
-                                                            @cart.Product.Name
-                                                    </div>
-                                                </div>
-                                            </td>
-
-                                            }
-                                            else
-                                            {
-                                            <td>
-                                                <div class="" style="display: flex; align-items: center;">
-
-                                                    <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@cart.Product.Name">
-
-                                                    <div>
-                                                            @cart.Product.Name
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            }
-                                        }
-                                    <td class="text-center align-items-center">
-
-                                        <div class="d-flex align-items-center mb-4">
-                                            <div class="input-group quantity mr-3" style="width: 130px;">
-                                                <input type="hidden" class="form-control bg-transparent border-0 text-center text-primary" name="Id" value="@cart.Id" required>
-                                                <input type="number" class="form-control bg-transparent border-0 text-center text-primary" name="Quantity" min="@cart.Product.MinimumOrder" max="@cart.Product.StockQuantity" value="@cart.Quantity" required>
-
+                <div class="bsc-tbl table-responsive mb-4">
+                    <table class="table table-sc-ex">
+                        @* <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th style="text-align: right;">Actions</th>
+                            </tr>
+                        </thead> *@
+                        <tbody>
+                            @{
+                                int count = 0;
+                                for (int i = Model.Count - 1; i >= 0; i--)
+                                {
+                                    var cart = Model[i];
+                                    count++;
+                                    <form asp-controller="Cart" asp-action="UpdateCart">
+                                    <tr class="align-items-center">
+                                        <td class="align-middle pl-0">
+                                            <div class="d-flex">
+                                                <a asp-controller="User" asp-action="" asp-route-id="@cart.Id" class="btn btn-light btn-sm"><i class="fa fa-times text-primary"></i></a>
                                             </div>
-                                        </div>
+                                        </td>
+                                        <td class="align-middle">
+                                            @{
+                                                if (cart.Product.ProductImages.Count > 0)
+                                                {
+                                                    var image = cart.Product.ProductImages[0];
+                                            
+                                                    <div class="align-items-center" style="display: flex;">
+
+                                                        <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@cart.Product.Name">
+
+                                                        <div>
+                                                                @cart.Product.Name
+                                                        </div>
+                                                    </div>
+                                            
+
+                                                }
+                                                else
+                                                {
+                                                    <div class="" style="display: flex; align-items: center;">
+
+                                                        <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid border border-secondary p-1" style="max-width: 70px; margin-right: 10px; border-radius: 10px;" alt="@cart.Product.Name">
+
+                                                        <div>
+                                                                @cart.Product.Name
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </td>
+                                        <td class="align-middle">
+                                            <div>
+                                                @{
+                                                    if (cart.Product.SoldPrice > 0)
+                                                    {
+                                                    <p class="mb-0">$@cart.Product.SoldPrice</p>
+                                                    }
+                                                    else
+                                                    {
+                                                    <p class="mb-0">$@cart.Product.Price</p>
+                                                    }
+                                                }
+                                            </div>
+                                        </td>
+                                        <td class="align-middle">
+
+                                            <div class="d-flex align-items-center quantity mr-3" style="width: 130px;">
+                                                <input type="hidden" class="form-control bg-transparent border-0 text-center text-primary" name="Id" value="@cart.Id" required>
+                                                <p class="mb-0 mr-2">x</p>
+                                                <input type="number" class="form-control bg-transparent border-1 text-left " name="Quantity" min="@cart.Product.MinimumOrder" max="@cart.Product.StockQuantity" value="@cart.Quantity" required>
+                                            </div>
 
 
-                                    </td>
-                                    <td class="" style="text-align:right;">
-                                        <div style="display: flex;">
-                                            <button class="btn btn-secondary mr-3" style="border: none;">Save</button>
-                                            <a asp-controller="Checkout" asp-action="Index" asp-route-cartId="@cart.Id" class="btn btn-primary bg-primary" style="border: none;">Proceed to checkout</a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </form>
+                                        </td>
+                                        <td class="align-middle pr-0">
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-secondary mr-3" style="border: none;">Save</button>
+                                                <a asp-controller="Checkout" asp-action="Index" asp-route-cartId="@cart.Id" class="btn btn-outline-primary" >Checkout</a>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                    </form>
+                                }
                             }
-                        }
-                    </tbody>
-                </table>
-            </div>
+                        </tbody>
+                    </table>
+                </div>
             </div>
             <div class="col-lg-4">
                 <form asp-controller="Checkout" asp-action="Index">

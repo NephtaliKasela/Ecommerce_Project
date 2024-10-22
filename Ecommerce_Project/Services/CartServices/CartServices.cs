@@ -23,8 +23,7 @@ namespace Ecommerce_Project.Services.CartServices
         public async Task<ServiceResponse<List<GetCartDTO>>> AddCart(AddCartDTO newCart)
         {
             var serviceResponse = new ServiceResponse<List<GetCartDTO>>();
-            var cart = _mapper.Map<Cart>(newCart);
-
+            
             bool result; int number;
             // Get Product
             (result, number) = _otherServices.CheckIfInteger(newCart.ProductId);
@@ -33,13 +32,30 @@ namespace Ecommerce_Project.Services.CartServices
                 var product = await _context.Products.FirstOrDefaultAsync(x => x.Id == number);
                 if (product is not null)
                 {
-                    cart.Product = product;
+                    // Check if the cart of the same product exist and just update it (add the new quantity to the old one and recalculate the total).
+                    // If the cart of the same product does not exist, Create one.
 
-                    if (cart.Product.SoldPrice > 0) { cart.Total = newCart.Quantity * product.SoldPrice; }
-                    else { cart.Total = newCart.Quantity * product.Price; }
+                    var existingCart = await _context.Carts
+                            .Include(x => x.Product)
+                            .FirstOrDefaultAsync(x => x.Product.Id == product.Id && x.Complete == false);
 
-                    //Save cart
-                    _context.Carts.Add(cart);
+                    if (existingCart is not null)
+                    {
+                        existingCart.Quantity += newCart.Quantity;
+                        if (product.SoldPrice > 0) { existingCart.Total = existingCart.Quantity * product.SoldPrice; }
+                        else { existingCart.Total = existingCart.Quantity * product.Price; }
+                    }
+                    else
+                    {
+                        var cart = _mapper.Map<Cart>(newCart);
+                        cart.Product = product;
+
+                        if (product.SoldPrice > 0) { cart.Total = newCart.Quantity * product.SoldPrice; }
+                        else { cart.Total = newCart.Quantity * product.Price; }
+
+                        //Save cart
+                        _context.Carts.Add(cart);
+                    }
                     await _context.SaveChangesAsync();
                 }
             }
@@ -120,7 +136,6 @@ namespace Ecommerce_Project.Services.CartServices
 
 				if (cart.Product.SoldPrice > 0) { cart.Total = updatedCart.Quantity * cart.Product.SoldPrice; }
 				else { cart.Total = updatedCart.Quantity * cart.Product.Price; }
-
 
 				await _context.SaveChangesAsync();
 
