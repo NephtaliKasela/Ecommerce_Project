@@ -160,12 +160,12 @@
                                                         if (Model.Product.ProductImages.Count > 0)
                                                         {
                                                             var image = Model.Product.ProductImages[0];
-                                                            <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="height: auto; max-height: 50px;" alt="@Model.Product.Name">
+                                                            <img src="data:@image.ContentType;base64,@System.Convert.ToBase64String(image.ImageData)" class="img-fluid" style="height: auto; max-height: 50px; border-radius: 5px 5px 5px 5px;" alt="@Model.Product.Name">
 
                                                         }
                                                         else
                                                         {
-                                                            <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid" style="height: auto; max-height: 50px;" alt="Product Image">
+                                                            <img src="~/007-eshopper-1.0.0/img/b9f2193028967077ad84b60a2cced514-removebg-preview.png" class="img-fluid" style="height: auto; max-height: 50px; border-radius: 5px 5px 5px 5px;" alt="Product Image">
 
                                                         }
                                                     }
@@ -306,7 +306,7 @@
                                 </div>
                                 <div class="card-body border-secondary">
                                     <div class="d-flex align-items-center gap-3 mb-3">
-                                        <i class="fa fa-credit-card bg-secondary text-primary p-3" style="font-size: 25px; text-align:center;  border-radius: 10px;"></i>
+                                        <i class="fa fa-credit-card bg-secondary text-primary p-3 mr-2" style="font-size: 25px; text-align:center;  border-radius: 10px;"></i>
                                         <div>
                                             <p class="mb-1 text-dark" style="font-size: 15px;">Master Card</p>
                                             <p class="mb-0 text-dark">xxxx xxxx xxxx 7812</p>
